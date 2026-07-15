@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trigonometry Observatory — Class 10, 11 & 12 Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c1224;
+    --bg-deep: #070b17;
+    --panel: #121a34;
+    --panel-2: #16204a;
+    --line: #263258;
+    --ink: #e9edf7;
+    --ink-dim: #9aa6c9;
+    --amber: #f2b544;
+    --teal: #4fd6c4;
+    --coral: #ef7a63;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(79,214,196,0.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 20%, rgba(242,181,68,0.08), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{ font-family:'Newsreader', serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- Layout shell ---------- */
+  .shell{ display:flex; min-height:100vh; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    width:260px; flex-shrink:0;
+    background:var(--bg-deep);
+    border-right:1px solid var(--line);
+    padding:22px 16px;
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px; margin-bottom:22px; padding:0 6px;
+  }
+  .brand svg{ flex-shrink:0; }
+  .brand-text{ font-family:'Newsreader',serif; font-size:1.15rem; font-weight:600; line-height:1.15; color:var(--ink); }
+  .brand-text span{ display:block; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; color:var(--teal); text-transform:uppercase; margin-top:3px;}
+
+  .search-box{ position:relative; margin-bottom:18px; }
+  .search-box input{
+    width:100%; padding:10px 12px 10px 34px; border-radius:10px; border:1px solid var(--line);
+    background:var(--panel); color:var(--ink); font-family:'Inter',sans-serif; font-size:0.85rem;
+  }
+  .search-box input:focus{ outline:none; border-color:var(--teal); }
+  .search-box::before{
+    content:"⌕"; position:absolute; left:11px; top:50%; transform:translateY(-50%);
+    color:var(--ink-dim); font-size:1rem;
+  }
+
+  .nav-group{ margin-bottom:6px; }
+  .nav-class-btn{
+    width:100%; text-align:left; background:none; border:none; color:var(--ink);
+    font-family:'Newsreader',serif; font-size:1rem; font-weight:600; padding:10px 8px;
+    cursor:pointer; border-radius:8px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-class-btn:hover{ background:var(--panel); }
+  .nav-class-btn.active{ background:var(--panel-2); color:var(--amber); }
+  .nav-class-btn .tag{ font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--ink-dim); }
+  .nav-sections{ padding-left:6px; margin:2px 0 14px 0; display:flex; flex-direction:column; }
+  .nav-sections a{
+    color:var(--ink-dim); text-decoration:none; font-size:0.8rem; padding:6px 10px 6px 16px;
+    border-left:2px solid var(--line); transition:color .15s, border-color .15s;
+  }
+  .nav-sections a:hover, .nav-sections a.active{ color:var(--teal); border-left-color:var(--teal); }
+
+  /* ---------- Main ---------- */
+  .main{ flex:1; min-width:0; }
+
+  .hero{
+    position:relative; padding:56px 48px 40px; border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-grid{ display:flex; align-items:center; gap:42px; flex-wrap:wrap; }
+  .hero-copy{ flex:1; min-width:280px; }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--teal); margin-bottom:14px; display:inline-block;
+  }
+  .hero h1{ font-size:2.6rem; line-height:1.08; margin:0 0 14px; font-weight:600; }
+  .hero h1 em{ font-style:italic; color:var(--amber); }
+  .hero p.lede{ color:var(--ink-dim); font-size:1.02rem; max-width:46ch; line-height:1.6; margin:0 0 22px;}
+  .hero-stats{ display:flex; gap:26px; flex-wrap:wrap; }
+  .hero-stats div{ font-family:'JetBrains Mono',monospace; }
+  .hero-stats .num{ font-size:1.4rem; color:var(--amber); font-weight:700; }
+  .hero-stats .lab{ font-size:0.68rem; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.08em; }
+
+  #unitCircle{ display:block; }
+  .circle-wrap{ position:relative; width:280px; height:280px; flex-shrink:0; }
+  .circle-caption{ position:absolute; bottom:-26px; left:0; right:0; text-align:center; font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--ink-dim); }
+
+  /* ---------- Content ---------- */
+  .content{ padding:36px 48px 100px; max-width:980px; }
+  .class-panel{ display:none; }
+  .class-panel.active{ display:block; animation:fadeIn .35s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .class-title{ display:flex; align-items:baseline; gap:12px; margin-bottom:6px; }
+  .class-title h2{ font-size:1.9rem; margin:0; font-weight:600; }
+  .class-title .badge{
+    font-family:'JetBrains Mono',monospace; font-size:0.72rem; padding:3px 10px; border-radius:20px;
+    border:1px solid var(--teal); color:var(--teal);
+  }
+  .class-sub{ color:var(--ink-dim); margin:0 0 30px; font-size:0.95rem; }
+
+  section.card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    margin-bottom:20px; overflow:hidden; scroll-margin-top:20px;
+  }
+  .card-head{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 20px; cursor:pointer; user-select:none;
+  }
+  .card-head:hover{ background:rgba(255,255,255,0.02); }
+  .card-head h3{ margin:0; font-size:1.08rem; font-weight:600; display:flex; align-items:center; gap:10px;}
+  .card-head .idx{ font-family:'JetBrains Mono',monospace; color:var(--coral); font-size:0.85rem; }
+  .chevron{ transition:transform .25s ease; color:var(--ink-dim); flex-shrink:0; }
+  .card.open .chevron{ transform:rotate(180deg); }
+  .card-body{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .card.open .card-body{ max-height:4000px; }
+  .card-body-inner{ padding:0 20px 22px; color:var(--ink); line-height:1.7; font-size:0.94rem; }
+  .card-body-inner p{ margin:0 0 12px; }
+  .card-body-inner ul{ margin:0 0 12px; padding-left:20px; }
+  .card-body-inner li{ margin-bottom:6px; }
+
+  .formula{
+    background:var(--bg-deep); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:8px; padding:11px 16px; margin:10px 0; font-family:'JetBrains Mono',monospace;
+    font-size:0.92rem; color:var(--amber); overflow-x:auto;
+  }
+  .formula.alt{ border-left-color:var(--coral); }
+  .formula .note{ color:var(--ink-dim); font-family:'Inter',sans-serif; font-size:0.78rem; display:block; margin-top:4px;}
+
+  table.ref{ width:100%; border-collapse:collapse; margin:12px 0 16px; font-size:0.88rem; }
+  table.ref th, table.ref td{ border:1px solid var(--line); padding:8px 10px; text-align:center; }
+  table.ref th{ background:var(--panel-2); color:var(--teal); font-family:'JetBrains Mono',monospace; font-weight:600; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em;}
+  table.ref td:first-child, table.ref th:first-child{ text-align:left; color:var(--ink-dim); font-family:'JetBrains Mono',monospace;}
+
+  .imp-q{ background:var(--bg-deep); border:1px dashed var(--line); border-radius:10px; padding:14px 18px; margin-top:14px;}
+  .imp-q h4{ margin:0 0 10px; font-size:0.9rem; color:var(--coral); font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.06em;}
+  .imp-q ol{ margin:0; padding-left:20px; }
+  .imp-q li{ margin-bottom:9px; font-size:0.92rem; line-height:1.55;}
+
+  .pill-row{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 4px;}
+  .pill{ font-family:'JetBrains Mono',monospace; font-size:0.72rem; background:var(--panel-2); border:1px solid var(--line); color:var(--ink-dim); padding:4px 10px; border-radius:20px;}
+
+  mark.hl{ background:rgba(242,181,68,0.28); color:var(--amber); padding:0 2px; border-radius:3px;}
+
+  .no-result{ display:none; text-align:center; padding:60px 20px; color:var(--ink-dim); }
+  .no-result.show{ display:block; }
+
+  footer.notes-footer{ padding:30px 48px 60px; color:var(--ink-dim); font-size:0.8rem; border-top:1px solid var(--line); }
+
+  ::-webkit-scrollbar{ width:9px; }
+  ::-webkit-scrollbar-track{ background:var(--bg-deep); }
+  ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:6px; }
+
+  @media (max-width: 860px){
+    .sidebar{ position:fixed; left:-280px; top:0; z-index:50; transition:left .25s ease; box-shadow:10px 0 30px rgba(0,0,0,0.4);}
+    .sidebar.open{ left:0; }
+    .menu-btn{ display:flex !important; }
+    .hero, .content{ padding-left:20px; padding-right:20px; }
+    .hero h1{ font-size:2rem; }
+    .circle-wrap{ width:200px; height:200px; }
+  }
+  .menu-btn{
+    display:none; position:fixed; top:16px; left:16px; z-index:60; background:var(--panel-2);
+    border:1px solid var(--line); color:var(--ink); width:40px; height:40px; border-radius:10px;
+    align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;
+  }
+  .overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:45; }
+  .overlay.show{ display:block; }
+</style>
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="17" stroke="#4fd6c4" stroke-width="1.5"/>
+        <line x1="20" y1="20" x2="34" y2="20" stroke="#f2b544" stroke-width="1.5"/>
+        <line x1="20" y1="20" x2="20" y2="6" stroke="#ef7a63" stroke-width="1.5" stroke-dasharray="2 2"/>
+        <path d="M20 20 L 31 27" stroke="#e9edf7" stroke-width="1.5"/>
+      </svg>
+      <div class="brand-text">Trig Observatory<span>NCERT · Board Level</span></div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search formulas, topics…">
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-class-btn active" data-class="c10">Class 10 <span class="tag">basics</span></button>
+      <div class="nav-sections" data-for="c10">
+        <a href="#c10-ratios">Trig Ratios</a>
+        <a href="#c10-values">Standard Angles</a>
+        <a href="#c10-complementary">Complementary Angles</a>
+        <a href="#c10-identities">Identities</a>
+        <a href="#c10-heights">Heights & Distances</a>
+        <a href="#c10-imp">Important Questions</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-class-btn" data-class="c11">Class 11 <span class="tag">functions</span></button>
+      <div class="nav-sections" data-for="c11" style="display:none;">
+        <a href="#c11-radian">Radian Measure</a>
+        <a href="#c11-quadrant">Quadrant Signs</a>
+        <a href="#c11-domain">Domain & Range</a>
+        <a href="#c11-allied">Allied Angles</a>
+        <a href="#c11-compound">Compound Angles</a>
+        <a href="#c11-multiple">Multiple & Sub-multiple</a>
+        <a href="#c11-transform">Sum ⇄ Product</a>
+        <a href="#c11-equations">Trig Equations</a>
+        <a href="#c11-imp">Important Questions</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-class-btn" data-class="c12">Class 12 <span class="tag">inverse</span></button>
+      <div class="nav-sections" data-for="c12" style="display:none;">
+        <a href="#c12-basics">Definition & Principal Values</a>
+        <a href="#c12-domain">Domain–Range Table</a>
+        <a href="#c12-graphs">Graph Shapes</a>
+        <a href="#c12-properties">Core Properties</a>
+        <a href="#c12-sumdiff">Sum & Difference Formulas</a>
+        <a href="#c12-double">Double Angle (Inverse)</a>
+        <a href="#c12-imp">Important Questions</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Complete Board-Level Notes</span>
+          <h1>Trigonometry, mapped like <em>the night sky</em>.</h1>
+          <p class="lede">Every ratio, identity and formula from Class 10 Trigonometry, Class 11 Trigonometric Functions, and Class 12 Inverse Trigonometric Functions — strictly NCERT level, built for quick revision before boards.</p>
+          <div class="hero-stats">
+            <div><div class="num">3</div><div class="lab">Classes</div></div>
+            <div><div class="num">40+</div><div class="lab">Formulas</div></div>
+            <div><div class="num">35+</div><div class="lab">Practice Qs</div></div>
+          </div>
+        </div>
+        <div class="circle-wrap">
+          <canvas id="unitCircle" width="280" height="280"></canvas>
+          <div class="circle-caption">the unit circle, always turning</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="no-result" id="noResult">No matches — try a different term.</div>
+
+      <!-- ================= CLASS 10 ================= -->
+      <div class="class-panel active" data-panel="c10">
+        <div class="class-title"><h2>Class 10 — Introduction to Trigonometry</h2><span class="badge">NCERT Ch. 8 & 9</span></div>
+        <p class="class-sub">Foundations: ratios in a right triangle, standard angle values, identities, and heights &amp; distances.</p>
+
+        <section class="card open" id="c10-ratios">
+          <div class="card-head"><h3><span class="idx">01</span> Trigonometric Ratios</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p>In a right triangle with the right angle at B, and ∠A as the reference angle: the side opposite ∠A is the <b>perpendicular</b>, the side opposite the right angle is the <b>hypotenuse</b>, and the remaining side is the <b>base</b>.</p>
+            <div class="formula">
+              sin A = Perpendicular / Hypotenuse&nbsp;&nbsp;&nbsp;cos A = Base / Hypotenuse&nbsp;&nbsp;&nbsp;tan A = Perpendicular / Base
+            </div>
+            <div class="formula alt">
+              cosec A = 1 / sin A&nbsp;&nbsp;&nbsp;sec A = 1 / cos A&nbsp;&nbsp;&nbsp;cot A = 1 / tan A
+            </div>
+            <div class="formula">
+              tan A = sin A / cos A&nbsp;&nbsp;&nbsp;cot A = cos A / sin A
+            </div>
+            <p>These six ratios depend only on the angle A, not on the size of the triangle (similar triangles give identical ratios).</p>
+          </div></div>
+        </section>
+
+        <section class="card" id="c10-values">
+          <div class="card-head"><h3><span class="idx">02</span> Trigonometric Ratios of Standard Angles</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <table class="ref">
+              <tr><th>∠A</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+              <tr><td>sin A</td><td>0</td><td>1/2</td><td>1/√2</td><td>√3/2</td><td>1</td></tr>
+              <tr><td>cos A</td><td>1</td><td>√3/2</td><td>1/√2</td><td>1/2</td><td>0</td></tr>
+              <tr><td>tan A</td><td>0</td><td>1/√3</td><td>1</td><td>√3</td><td>∞ (undefined)</td></tr>
+              <tr><td>cosec A</td><td>∞</td><td>2</td><td>√2</td><td>2/√3</td><td>1</td></tr>
+              <tr><td>sec A</td><td>1</td><td>2/√3</td><td>√2</td><td>2</td><td>∞</td></tr>
+              <tr><td>cot A</td><td>∞</td><td>√3</td><td>1</td><td>1/√3</td><td>0</td></tr>
+            </table>
+            <p><b>Memory trick:</b> write sin values as √(0/4), √(1/4), √(2/4), √(3/4), √(4/4) for 0°,30°,45°,60°,90° — cos is the same list reversed.</p>
+          </div></div>
+        </section>
+
+        <section class="card" id="c10-complementary">
+          <div class="card-head"><h3><span class="idx">03</span> Ratios of Complementary Angles</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p>Two angles are complementary if they add up to 90°.</p>
+            <div class="formula">
+              sin(90° − A) = cos A&nbsp;&nbsp;&nbsp;cos(90° − A) = sin A
+            </div>
+            <div class="formula">
+              tan(90° − A) = cot A&nbsp;&nbsp;&nbsp;cot(90° − A) = tan A
+            </div>
+            <div class="formula">
+              sec(90° − A) = cosec A&nbsp;&nbsp;&nbsp;cosec(90° − A) = sec A
+            </div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c10-identities">
+          <div class="card-head"><h3><span class="idx">04</span> Trigonometric Identities</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">sin²A + cos²A = 1</div>
+            <div class="formula alt">1 + tan²A = sec²A <span class="note">(divide identity 1 by cos²A)</span></div>
+            <div class="formula">1 + cot²A = cosec²A <span class="note">(divide identity 1 by sin²A)</span></div>
+            <p>These identities are used to simplify expressions, eliminate the angle, or prove one trig expression equals another — a very common board question type.</p>
+          </div></div>
+        </section>
+
+        <section class="card" id="c10-heights">
+          <div class="card-head"><h3><span class="idx">05</span> Heights and Distances</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p><b>Angle of elevation:</b> the angle between the horizontal line of sight and the line of sight to an object <i>above</i> it.</p>
+            <p><b>Angle of depression:</b> the angle between the horizontal line and the line of sight to an object <i>below</i> it.</p>
+            <div class="formula">tan θ = Height / Distance (horizontal base)</div>
+            <p><b>Method:</b> draw a clear diagram → mark the right angle → identify which sides are known/unknown relative to θ → pick the ratio (sin, cos or tan) connecting them → solve.</p>
+            <div class="pill-row"><span class="pill">always draw the figure</span><span class="pill">label the right angle</span><span class="pill">use √3 ≈ 1.732 if needed</span></div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c10-imp">
+          <div class="card-head"><h3><span class="idx">06</span> Important Questions — Class 10</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="imp-q">
+              <h4>Practice Set</h4>
+              <ol>
+                <li>If sin A = 3/4, calculate cos A and tan A.</li>
+                <li>If ∠A and ∠B are acute angles such that cos A = cos B, then show that ∠A = ∠B.</li>
+                <li>Evaluate: (sin 30° + cos 60°) / (sin 60° + cos 30°), and (sin 45° + cos 45°).</li>
+                <li>Prove: (sin θ + cos θ)² + (sin θ − cos θ)² = 2.</li>
+                <li>Prove: tan²θ − sin²θ = tan²θ · sin²θ.</li>
+                <li>If tan θ = 12/5, find the value of (sin θ + cos θ) · sec θ.</li>
+                <li>A tower stands vertically on the ground. From a point on the ground 20 m away, the angle of elevation of the top is 60°. Find the height of the tower.</li>
+                <li>From the top of a 7 m building, the angle of elevation of the top of a cable tower is 60°, and the angle of depression of its foot is 45°. Find the height of the tower.</li>
+                <li>Prove: (cosec θ − cot θ)² = (1 − cos θ)/(1 + cos θ).</li>
+                <li>Two poles of equal height stand on either side of a road 80 m wide. From a point between them, the angles of elevation are 60° and 30°. Find the height of the poles and the position of the point.</li>
+              </ol>
+            </div>
+          </div></div>
+        </section>
+      </div>
+
+      <!-- ================= CLASS 11 ================= -->
+      <div class="class-panel" data-panel="c11">
+        <div class="class-title"><h2>Class 11 — Trigonometric Functions</h2><span class="badge">NCERT Ch. 3</span></div>
+        <p class="class-sub">Extending ratios into functions of any angle: radians, quadrant signs, compound &amp; multiple angle formulas, and general solutions of equations.</p>
+
+        <section class="card open" id="c11-radian">
+          <div class="card-head"><h3><span class="idx">01</span> Degree &amp; Radian Measure</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">π radians = 180°&nbsp;&nbsp;&nbsp;1 radian = 180°/π ≈ 57°16′&nbsp;&nbsp;&nbsp;1° = π/180 radian</div>
+            <div class="formula alt">Arc length: l = r θ &nbsp;<span class="note">(θ in radians, r = radius)</span></div>
+            <table class="ref">
+              <tr><th>Degree</th><td>0°</td><td>30°</td><td>45°</td><td>60°</td><td>90°</td><td>180°</td><td>270°</td><td>360°</td></tr>
+              <tr><th>Radian</th><td>0</td><td>π/6</td><td>π/4</td><td>π/3</td><td>π/2</td><td>π</td><td>3π/2</td><td>2π</td></tr>
+            </table>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-quadrant">
+          <div class="card-head"><h3><span class="idx">02</span> Sign of Functions in Each Quadrant (ASTC Rule)</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p><b>A</b>ll (QI) → <b>S</b>in, cosec (QII) → <b>T</b>an, cot (QIII) → <b>C</b>os, sec (QIV) are positive; every other ratio in that quadrant is negative. <i>Mnemonic: "Add Sugar To Coffee".</i></p>
+            <table class="ref">
+              <tr><th>Quadrant</th><th>Positive</th><th>Negative</th></tr>
+              <tr><td>I (0°–90°)</td><td>all</td><td>none</td></tr>
+              <tr><td>II (90°–180°)</td><td>sin, cosec</td><td>cos, tan, cot, sec</td></tr>
+              <tr><td>III (180°–270°)</td><td>tan, cot</td><td>sin, cos, sec, cosec</td></tr>
+              <tr><td>IV (270°–360°)</td><td>cos, sec</td><td>sin, tan, cot, cosec</td></tr>
+            </table>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-domain">
+          <div class="card-head"><h3><span class="idx">03</span> Domain, Range &amp; Periodicity</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <table class="ref">
+              <tr><th>Function</th><th>Domain</th><th>Range</th><th>Period</th></tr>
+              <tr><td>sin x</td><td>R</td><td>[−1, 1]</td><td>2π</td></tr>
+              <tr><td>cos x</td><td>R</td><td>[−1, 1]</td><td>2π</td></tr>
+              <tr><td>tan x</td><td>R − {(2n+1)π/2}</td><td>R</td><td>π</td></tr>
+              <tr><td>cot x</td><td>R − {nπ}</td><td>R</td><td>π</td></tr>
+              <tr><td>sec x</td><td>R − {(2n+1)π/2}</td><td>R − (−1,1)</td><td>2π</td></tr>
+              <tr><td>cosec x</td><td>R − {nπ}</td><td>R − (−1,1)</td><td>2π</td></tr>
+            </table>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-allied">
+          <div class="card-head"><h3><span class="idx">04</span> Trigonometric Functions of Allied Angles</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p>Allied angles are angles of the form −θ, 90°±θ, 180°±θ, 270°±θ, 360°±θ. Rule of thumb: for 90°±θ and 270°±θ, the function <b>changes co-function</b> (sin↔cos, tan↔cot, sec↔cosec); for 180°±θ and 360°±θ, the function <b>stays the same</b>. The sign is fixed by the quadrant of the angle.</p>
+            <div class="formula">sin(−θ) = −sin θ&nbsp;&nbsp;&nbsp;cos(−θ) = cos θ&nbsp;&nbsp;&nbsp;tan(−θ) = −tan θ</div>
+            <div class="formula alt">sin(180° − θ) = sin θ&nbsp;&nbsp;&nbsp;cos(180° − θ) = −cos θ&nbsp;&nbsp;&nbsp;tan(180° − θ) = −tan θ</div>
+            <div class="formula">sin(180° + θ) = −sin θ&nbsp;&nbsp;&nbsp;cos(180° + θ) = −cos θ&nbsp;&nbsp;&nbsp;tan(180° + θ) = tan θ</div>
+            <div class="formula alt">sin(90° − θ) = cos θ&nbsp;&nbsp;&nbsp;cos(90° − θ) = sin θ&nbsp;&nbsp;&nbsp;tan(90° − θ) = cot θ</div>
+            <div class="formula">sin(90° + θ) = cos θ&nbsp;&nbsp;&nbsp;cos(90° + θ) = −sin θ&nbsp;&nbsp;&nbsp;tan(90° + θ) = −cot θ</div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-compound">
+          <div class="card-head"><h3><span class="idx">05</span> Compound Angle (Sum &amp; Difference) Formulas</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">sin(A + B) = sin A cos B + cos A sin B</div>
+            <div class="formula alt">sin(A − B) = sin A cos B − cos A sin B</div>
+            <div class="formula">cos(A + B) = cos A cos B − sin A sin B</div>
+            <div class="formula alt">cos(A − B) = cos A cos B + sin A sin B</div>
+            <div class="formula">tan(A + B) = (tan A + tan B) / (1 − tan A tan B)</div>
+            <div class="formula alt">tan(A − B) = (tan A − tan B) / (1 + tan A tan B)</div>
+            <div class="formula">cot(A + B) = (cot A cot B − 1) / (cot A + cot B)</div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-multiple">
+          <div class="card-head"><h3><span class="idx">06</span> Multiple &amp; Sub-multiple Angle Formulas</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">sin 2A = 2 sin A cos A = 2 tan A / (1 + tan²A)</div>
+            <div class="formula alt">cos 2A = cos²A − sin²A = 2cos²A − 1 = 1 − 2sin²A = (1 − tan²A)/(1 + tan²A)</div>
+            <div class="formula">tan 2A = 2 tan A / (1 − tan²A)</div>
+            <div class="formula alt">sin 3A = 3 sin A − 4 sin³A</div>
+            <div class="formula">cos 3A = 4 cos³A − 3 cos A</div>
+            <div class="formula alt">tan 3A = (3 tan A − tan³A) / (1 − 3 tan²A)</div>
+            <p>Same formulas hold for A/2 in place of A (sub-multiple / half-angle case) — e.g. sin A = 2 sin(A/2) cos(A/2).</p>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-transform">
+          <div class="card-head"><h3><span class="idx">07</span> Sum ⇄ Product Transformations</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p><b>Sum/Difference → Product</b></p>
+            <div class="formula">sin C + sin D = 2 sin((C+D)/2) cos((C−D)/2)</div>
+            <div class="formula alt">sin C − sin D = 2 cos((C+D)/2) sin((C−D)/2)</div>
+            <div class="formula">cos C + cos D = 2 cos((C+D)/2) cos((C−D)/2)</div>
+            <div class="formula alt">cos C − cos D = −2 sin((C+D)/2) sin((C−D)/2)</div>
+            <p><b>Product → Sum/Difference</b></p>
+            <div class="formula">2 sin A cos B = sin(A+B) + sin(A−B)</div>
+            <div class="formula alt">2 cos A sin B = sin(A+B) − sin(A−B)</div>
+            <div class="formula">2 cos A cos B = cos(A+B) + cos(A−B)</div>
+            <div class="formula alt">2 sin A sin B = cos(A−B) − cos(A+B)</div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-equations">
+          <div class="card-head"><h3><span class="idx">08</span> Trigonometric Equations — General Solutions</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">sin θ = sin α ⟹ θ = nπ + (−1)ⁿ α, n ∈ Z</div>
+            <div class="formula alt">cos θ = cos α ⟹ θ = 2nπ ± α, n ∈ Z</div>
+            <div class="formula">tan θ = tan α ⟹ θ = nπ + α, n ∈ Z</div>
+            <div class="formula alt">sin θ = 0 ⟹ θ = nπ&nbsp;&nbsp;&nbsp;cos θ = 0 ⟹ θ = (2n+1)π/2</div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c11-imp">
+          <div class="card-head"><h3><span class="idx">09</span> Important Questions — Class 11</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="imp-q">
+              <h4>Practice Set</h4>
+              <ol>
+                <li>Convert 6 radians into degree measure, and 40° into radian measure.</li>
+                <li>If cos x = −3/5 and x lies in the third quadrant, find the values of the other five trigonometric functions.</li>
+                <li>Prove: cos(π/4 − x) cos(π/4 − y) − sin(π/4 − x) sin(π/4 − y) = sin(x + y).</li>
+                <li>Prove: sin 3x + sin 2x − sin x = 4 sin x cos(x/2) cos(3x/2).</li>
+                <li>Find the general solution of the equation sin 2x − sin 4x + sin 6x = 0.</li>
+                <li>Prove that: (cos 4x + cos 3x + cos 2x) / (sin 4x + sin 3x + sin 2x) = cot 3x.</li>
+                <li>Find the value of sin 75° and tan 15° using compound angle formulas.</li>
+                <li>Prove: tan 3x tan 2x tan x = tan 3x − tan 2x − tan x.</li>
+                <li>Solve: 2 cos²x + 3 sin x = 0 for general values of x.</li>
+                <li>If tan A = 1/2 and tan B = 1/3, prove that A + B = π/4.</li>
+              </ol>
+            </div>
+          </div></div>
+        </section>
+      </div>
+
+      <!-- ================= CLASS 12 ================= -->
+      <div class="class-panel" data-panel="c12">
+        <div class="class-title"><h2>Class 12 — Inverse Trigonometric Functions</h2><span class="badge">NCERT Ch. 2</span></div>
+        <p class="class-sub">Restricting domains to define inverses, their principal value branches, graphs, and the key identities used in simplification and equations.</p>
+
+        <section class="card open" id="c12-basics">
+          <div class="card-head"><h3><span class="idx">01</span> Definition &amp; Principal Value Branch</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p>Trigonometric functions aren't one-one over their full domain, so they aren't invertible everywhere. Restricting each to an interval where it is one-one and onto gives its <b>inverse trigonometric function</b>, written sin⁻¹x, cos⁻¹x, etc. (Note: sin⁻¹x ≠ 1/sin x.)</p>
+            <div class="formula">If sin y = x, then y = sin⁻¹x, provided −1 ≤ x ≤ 1 and y ∈ [−π/2, π/2]</div>
+            <p>The interval chosen for y is called the <b>principal value branch</b>.</p>
+          </div></div>
+        </section>
+
+        <section class="card" id="c12-domain">
+          <div class="card-head"><h3><span class="idx">02</span> Domain – Range (Principal Value Branch) Table</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <table class="ref">
+              <tr><th>Function</th><th>Domain</th><th>Range (Principal Branch)</th></tr>
+              <tr><td>sin⁻¹x</td><td>[−1, 1]</td><td>[−π/2, π/2]</td></tr>
+              <tr><td>cos⁻¹x</td><td>[−1, 1]</td><td>[0, π]</td></tr>
+              <tr><td>tan⁻¹x</td><td>R</td><td>(−π/2, π/2)</td></tr>
+              <tr><td>cot⁻¹x</td><td>R</td><td>(0, π)</td></tr>
+              <tr><td>sec⁻¹x</td><td>R − (−1, 1)</td><td>[0, π] − {π/2}</td></tr>
+              <tr><td>cosec⁻¹x</td><td>R − (−1, 1)</td><td>[−π/2, π/2] − {0}</td></tr>
+            </table>
+          </div></div>
+        </section>
+
+        <section class="card" id="c12-graphs">
+          <div class="card-head"><h3><span class="idx">03</span> Graph Shapes (quick recall)</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <ul>
+              <li><b>sin⁻¹x:</b> increasing, S-shaped curve through the origin, bounded between −π/2 and π/2.</li>
+              <li><b>cos⁻¹x:</b> decreasing curve from (−1, π) to (1, 0), passing through (0, π/2).</li>
+              <li><b>tan⁻¹x:</b> increasing S-curve with horizontal asymptotes at y = ±π/2, passes through origin.</li>
+              <li><b>cot⁻¹x:</b> decreasing curve with asymptotes at y = 0 and y = π, passes through (0, π/2).</li>
+              <li><b>sec⁻¹x</b> and <b>cosec⁻¹x:</b> defined only for |x| ≥ 1, with a gap in the middle of the range at π/2 (sec⁻¹) or 0 (cosec⁻¹).</li>
+            </ul>
+          </div></div>
+        </section>
+
+        <section class="card" id="c12-properties">
+          <div class="card-head"><h3><span class="idx">04</span> Core Properties</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <p><b>Set 1 — Basic (self-cancelling)</b></p>
+            <div class="formula">sin⁻¹(sin θ) = θ, θ ∈ [−π/2, π/2]&nbsp;&nbsp;&nbsp;sin(sin⁻¹x) = x, x ∈ [−1, 1]</div>
+            <p>(similarly for cos, tan, cot, sec, cosec with their own principal domains)</p>
+            <p><b>Set 2 — Reciprocal</b></p>
+            <div class="formula">sin⁻¹(1/x) = cosec⁻¹x&nbsp;&nbsp;&nbsp;cos⁻¹(1/x) = sec⁻¹x&nbsp;&nbsp;&nbsp;tan⁻¹(1/x) = cot⁻¹x (for x &gt; 0)</div>
+            <p><b>Set 3 — Complementary (co-function sum = π/2)</b></p>
+            <div class="formula">sin⁻¹x + cos⁻¹x = π/2&nbsp;&nbsp;&nbsp;tan⁻¹x + cot⁻¹x = π/2&nbsp;&nbsp;&nbsp;sec⁻¹x + cosec⁻¹x = π/2</div>
+            <p><b>Set 4 — Negative argument</b></p>
+            <div class="formula">sin⁻¹(−x) = −sin⁻¹x&nbsp;&nbsp;&nbsp;tan⁻¹(−x) = −tan⁻¹x&nbsp;&nbsp;&nbsp;cosec⁻¹(−x) = −cosec⁻¹x</div>
+            <div class="formula alt">cos⁻¹(−x) = π − cos⁻¹x&nbsp;&nbsp;&nbsp;cot⁻¹(−x) = π − cot⁻¹x&nbsp;&nbsp;&nbsp;sec⁻¹(−x) = π − sec⁻¹x</div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c12-sumdiff">
+          <div class="card-head"><h3><span class="idx">05</span> Sum &amp; Difference Formulas</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">tan⁻¹x + tan⁻¹y = tan⁻¹((x+y)/(1−xy))&nbsp;&nbsp;<span class="note">valid when xy &lt; 1</span></div>
+            <div class="formula alt">tan⁻¹x − tan⁻¹y = tan⁻¹((x−y)/(1+xy))&nbsp;&nbsp;<span class="note">valid when xy &gt; −1</span></div>
+            <div class="formula">sin⁻¹x + sin⁻¹y = sin⁻¹(x√(1−y²) + y√(1−x²))&nbsp;&nbsp;<span class="note">valid when x²+y² ≤ 1</span></div>
+            <div class="formula alt">cos⁻¹x + cos⁻¹y = cos⁻¹(xy − √(1−x²)√(1−y²))</div>
+            <p>When xy &gt; 1 in the tan⁻¹ sum formula, add π (for x, y &gt; 0) or subtract π (for x, y &lt; 0) to the RHS.</p>
+          </div></div>
+        </section>
+
+        <section class="card" id="c12-double">
+          <div class="card-head"><h3><span class="idx">06</span> Double Angle Formulas (Inverse Form)</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="formula">2 tan⁻¹x = sin⁻¹(2x / (1+x²)), |x| ≤ 1</div>
+            <div class="formula alt">2 tan⁻¹x = cos⁻¹((1−x²)/(1+x²)), x ≥ 0</div>
+            <div class="formula">2 tan⁻¹x = tan⁻¹(2x / (1−x²)), −1 &lt; x &lt; 1</div>
+          </div></div>
+        </section>
+
+        <section class="card" id="c12-imp">
+          <div class="card-head"><h3><span class="idx">07</span> Important Questions — Class 12</h3><span class="chevron">▾</span></div>
+          <div class="card-body"><div class="card-body-inner">
+            <div class="imp-q">
+              <h4>Practice Set</h4>
+              <ol>
+                <li>Find the principal value of sin⁻¹(−1/2) and cos⁻¹(−1/2).</li>
+                <li>Prove: tan⁻¹(1/2) + tan⁻¹(1/3) = π/4.</li>
+                <li>Write cot⁻¹(−√3) in terms of the principal value branch.</li>
+                <li>Prove: 2 tan⁻¹(1/2) + tan⁻¹(1/7) = tan⁻¹(31/17).</li>
+                <li>Solve for x: tan⁻¹((1−x)/(1+x)) = (1/2) tan⁻¹x, x &gt; 0.</li>
+                <li>Prove: sin⁻¹(3/5) − sin⁻¹(8/17) = cos⁻¹(84/85).</li>
+                <li>Express tan⁻¹(cos x / (1 − sin x)) in the simplest form, for −π/2 &lt; x &lt; π/2.</li>
+                <li>Find the value of cos⁻¹(1/2) + 2 sin⁻¹(1/2).</li>
+                <li>Prove: tan⁻¹x + tan⁻¹(2x/(1−x²)) = tan⁻¹(3x−x³)/(1−3x²), for x within valid range.</li>
+                <li>Solve: sin⁻¹(1 − x) − 2 sin⁻¹x = π/2.</li>
+              </ol>
+            </div>
+          </div></div>
+        </section>
+      </div>
+
+    </div>
+
+    <footer class="notes-footer">
+      Built for quick board revision — strictly NCERT level (Class 10, 11 &amp; 12). Tip: use the search box to jump straight to a formula, and click any card header to expand or collapse it.
+    </footer>
+  </main>
+</div>
+
+<script>
+  // ---------- Class tab switching ----------
+  const classBtns = document.querySelectorAll('.nav-class-btn');
+  const panels = document.querySelectorAll('.class-panel');
+  const sectionGroups = document.querySelectorAll('.nav-sections');
+
+  classBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cls = btn.dataset.class;
+      classBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      panels.forEach(p => p.classList.toggle('active', p.dataset.panel === cls));
+      sectionGroups.forEach(g => g.style.display = (g.dataset.for === cls) ? 'flex' : 'none');
+      sectionGroups.forEach(g => g.style.flexDirection = 'column');
+      if(window.innerWidth <= 860){ closeSidebar(); }
+    });
+  });
+
+  // clicking a section link also switches the right class panel (in case of stale state) and scrolls
+  document.querySelectorAll('.nav-sections a').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav-sections a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active');
+    });
+  });
+
+  // ---------- Accordion ----------
+  document.querySelectorAll('.card-head').forEach(head => {
+    head.addEventListener('click', () => {
+      head.parentElement.classList.toggle('open');
+    });
+  });
+
+  // ---------- Mobile sidebar ----------
+  const sidebar = document.getElementById('sidebar');
+  const menuBtn = document.getElementById('menuBtn');
+  const overlay = document.getElementById('overlay');
+  function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+  function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+  menuBtn.addEventListener('click', () => sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
+  overlay.addEventListener('click', closeSidebar);
+
+  // ---------- Search ----------
+  const searchInput = document.getElementById('searchInput');
+  const noResult = document.getElementById('noResult');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    // clear old highlights
+    document.querySelectorAll('mark.hl').forEach(m => {
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+
+    if(q.length === 0){
+      document.querySelectorAll('section.card').forEach(c => c.style.display = '');
+      noResult.classList.remove('show');
+      return;
+    }
+
+    let anyVisible = false;
+    document.querySelectorAll('.class-panel').forEach(panel=>{
+      let panelHasMatch = false;
+      panel.querySelectorAll('section.card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const match = text.includes(q);
+        card.style.display = match ? '' : 'none';
+        if(match){
+          panelHasMatch = true; anyVisible = true;
+          card.classList.add('open');
+        }
+      });
+      if(panelHasMatch){
+        // reveal this class panel, activate its tab
+        classBtns.forEach(b=>{
+          const isThis = b.dataset.class === panel.dataset.panel;
+          b.classList.toggle('active', isThis || b.classList.contains('active'));
+        });
+      }
+    });
+
+    noResult.classList.toggle('show', !anyVisible);
+  });
+
+  // ---------- Unit circle hero animation ----------
+  const canvas = document.getElementById('unitCircle');
+  const ctx = canvas.getContext('2d');
+  const cx = canvas.width/2, cy = canvas.height/2, R = 100;
+  let angle = 0;
+
+  function drawCircle(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // grid axes
+    ctx.strokeStyle = 'rgba(154,166,201,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx-R-20, cy); ctx.lineTo(cx+R+20, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy-R-20); ctx.lineTo(cx, cy+R+20); ctx.stroke();
+
+    // circle
+    ctx.strokeStyle = '#4fd6c4';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+
+    const px = cx + R*Math.cos(angle);
+    const py = cy - R*Math.sin(angle);
+
+    // cos projection
+    ctx.strokeStyle = '#f2b544';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(px, cy); ctx.lineTo(px, py); ctx.stroke();
+
+    // sin projection
+    ctx.strokeStyle = '#ef7a63';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, cy); ctx.stroke();
+
+    // radius
+    ctx.strokeStyle = '#e9edf7';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+
+    // point
+    ctx.fillStyle = '#e9edf7';
+    ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI*2); ctx.fill();
+
+    // labels
+    ctx.font = '11px JetBrains Mono, monospace';
+    ctx.fillStyle = '#9aa6c9';
+    ctx.fillText('θ', cx+16, cy-8);
+
+    angle += 0.012;
+    requestAnimationFrame(drawCircle);
+  }
+  drawCircle();
+</script>
+</body>
+</html>
