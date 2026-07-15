@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Class 12 Python — Complete Notes (Functions, Exceptions, Files, Stack & Queue)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#161923; --panel2:#1c2030; --text:#e7e9ee; --muted:#9aa3b2;
+    --accent:#7dd3fc; --accent2:#c4b5fd; --good:#86efac; --warn:#fca5a5; --code:#0b0d13;
+    --border:#2a2f3f; --ch1:#7dd3fc; --ch2:#fca5a5; --ch3:#86efac; --ch4:#facc15;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:"Segoe UI",-apple-system,Roboto,Helvetica,Arial,sans-serif; line-height:1.65;}
+  .wrap{max-width:940px; margin:0 auto; padding:32px 20px 120px;}
+  header.hero{padding:40px 28px; border-radius:16px; background:linear-gradient(135deg,#1b2540,#241b3d 60%,#1b2540); border:1px solid var(--border); margin-bottom:36px;}
+  header.hero h1{margin:0 0 8px; font-size:2.1rem; color:#fff;}
+  header.hero p{margin:0; color:var(--muted); font-size:1rem;}
+  nav.toc{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:36px;}
+  nav.toc h2{margin-top:0; font-size:1rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent);}
+  nav.toc .chapter-block{margin-bottom:16px;}
+  nav.toc .chapter-block > a{font-weight:600; color:#fff; text-decoration:none; font-size:1.05rem;}
+  nav.toc ol{margin:6px 0 0; padding-left:1.2em; columns:2; column-gap:28px;}
+  nav.toc li{margin-bottom:4px; font-size:0.92rem;}
+  nav.toc a{color:var(--text); text-decoration:none; border-bottom:1px dashed var(--border);}
+  nav.toc a:hover{color:var(--accent);}
+  .chapter-divider{
+    margin:70px 0 30px; padding:22px 28px; border-radius:14px;
+    background:linear-gradient(120deg,#1a1f2e,#20263a);
+    border:1px solid var(--border); border-left-width:6px;
+  }
+  .chapter-divider h1{margin:0; font-size:1.7rem; color:#fff;}
+  .chapter-divider p{margin:6px 0 0; color:var(--muted);}
+  #functions-ch{border-left-color:var(--ch1);}
+  #exceptions-ch{border-left-color:var(--ch2);}
+  #files-ch{border-left-color:var(--ch3);}
+  #stackqueue-ch{border-left-color:var(--ch4);}
+  section{margin-bottom:44px;}
+  h2{font-size:1.5rem; color:#fff; border-left:4px solid var(--accent); padding-left:12px; margin-top:48px;}
+  h3{color:var(--accent2); font-size:1.15rem; margin-top:28px;}
+  h4{color:var(--accent); font-size:1rem; margin-bottom:6px;}
+  p{color:var(--text);}
+  .muted{color:var(--muted);}
+  .card{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin:16px 0;}
+  .note{border-left:4px solid var(--accent); background:#132133;}
+  .warning{border-left:4px solid var(--warn); background:#2a1518;}
+  .tip{border-left:4px solid var(--good); background:#12261a;}
+  .card h4{margin-top:0;}
+  pre{background:var(--code); border:1px solid var(--border); border-radius:10px; padding:14px 16px; overflow-x:auto; font-size:0.9rem;}
+  code{font-family:"Cascadia Code","Fira Code",Consolas,monospace;}
+  p code, li code, td code{background:var(--panel2); padding:2px 6px; border-radius:4px; color:var(--accent); font-size:0.88em;}
+  .out-label{display:inline-block; font-size:0.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:14px 0 4px;}
+  .output{background:#0a1a12; border:1px solid #1f3d2b; border-radius:10px; padding:12px 16px; color:var(--good); font-family:"Cascadia Code",Consolas,monospace; font-size:0.88rem; white-space:pre-wrap;}
+  .explain{background:#161329; border:1px solid #302a52; border-radius:10px; padding:12px 16px; margin-top:10px;}
+  .explain strong{color:var(--accent2);}
+  table{width:100%; border-collapse:collapse; margin:18px 0; font-size:0.92rem;}
+  th,td{border:1px solid var(--border); padding:9px 12px; text-align:left;}
+  th{background:var(--panel2); color:var(--accent);}
+  tr:nth-child(even){background:#151824;}
+  .badge{display:inline-block; font-size:0.72rem; padding:2px 10px; border-radius:20px; background:var(--panel2); color:var(--accent2); border:1px solid var(--border); margin-left:8px; vertical-align:middle;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:700px){ .grid2{grid-template-columns:1fr;} nav.toc ol{columns:1;} }
+  hr.sep{border:none; border-top:1px solid var(--border); margin:40px 0;}
+  footer{color:var(--muted); text-align:center; margin-top:60px; font-size:0.85rem;}
+  .diagram{background:var(--code); border:1px solid var(--border); border-radius:10px; padding:16px; font-family:"Cascadia Code",Consolas,monospace; font-size:0.85rem; color:var(--accent2); white-space:pre; overflow-x:auto;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>🐍 Class 12 Python — Complete Notes</h1>
+  <p>Functions · Exception Handling · File Handling · Stack &amp; Queue — CBSE/NCERT syllabus explained in full depth with examples, outputs, and explanations for every function. Extended past the textbook wherever it helps real understanding.</p>
+</header>
+
+<nav class="toc">
+  <h2>Contents</h2>
+
+  <div class="chapter-block">
+    <a href="#functions-ch">Chapter 1 — Functions</a>
+    <ol>
+      <li><a href="#f-intro">What is a Function?</a></li>
+      <li><a href="#f-types">Types of Functions</a></li>
+      <li><a href="#f-def">Defining &amp; Calling Functions</a></li>
+      <li><a href="#f-args">Arguments &amp; Parameters (all kinds)</a></li>
+      <li><a href="#f-return">The return Statement</a></li>
+      <li><a href="#f-scope">Scope: Local, Global, nonlocal</a></li>
+      <li><a href="#f-recursion">Recursion</a></li>
+      <li><a href="#f-lambda">Lambda Functions</a></li>
+      <li><a href="#f-modules">Modules &amp; import</a></li>
+      <li><a href="#f-beyond">Beyond Class 12 (decorators, closures)</a></li>
+    </ol>
+  </div>
+
+  <div class="chapter-block">
+    <a href="#exceptions-ch">Chapter 2 — Exception Handling</a>
+    <ol>
+      <li><a href="#e-intro">Errors vs Exceptions</a></li>
+      <li><a href="#e-trycept">try / except</a></li>
+      <li><a href="#e-multiple">Multiple except Blocks</a></li>
+      <li><a href="#e-elsefinally">else and finally</a></li>
+      <li><a href="#e-builtins">Built-in Exceptions Table</a></li>
+      <li><a href="#e-raise">raise Statement</a></li>
+      <li><a href="#e-custom">Custom Exceptions</a></li>
+      <li><a href="#e-assert">assert Statement</a></li>
+      <li><a href="#e-beyond">Beyond Class 12</a></li>
+    </ol>
+  </div>
+
+  <div class="chapter-block">
+    <a href="#files-ch">Chapter 3 — File Handling</a>
+    <ol>
+      <li><a href="#fh-intro">What is a File?</a></li>
+      <li><a href="#fh-types">Types of Files</a></li>
+      <li><a href="#fh-open">open() &amp; Modes</a></li>
+      <li><a href="#fh-attrs">File Object Attributes</a></li>
+      <li><a href="#fh-text">Text Files — Deep Dive</a></li>
+      <li><a href="#fh-cursor">tell() and seek()</a></li>
+      <li><a href="#fh-binary">Binary Files — Deep Dive</a></li>
+      <li><a href="#fh-csv">CSV Files — Deep Dive</a></li>
+      <li><a href="#fh-with">with Statement &amp; Exceptions</a></li>
+      <li><a href="#fh-beyond">Beyond Class 12 (JSON, struct, os)</a></li>
+    </ol>
+  </div>
+
+  <div class="chapter-block">
+    <a href="#stackqueue-ch">Chapter 4 — Stack &amp; Queue</a>
+    <ol>
+      <li><a href="#sq-stack-intro">What is a Stack? (LIFO)</a></li>
+      <li><a href="#sq-stack-list">Stack Using a List</a></li>
+      <li><a href="#sq-stack-class">Stack Using a Class</a></li>
+      <li><a href="#sq-stack-apps">Applications of Stack</a></li>
+      <li><a href="#sq-queue-intro">What is a Queue? (FIFO)</a></li>
+      <li><a href="#sq-queue-list">Queue Using a List</a></li>
+      <li><a href="#sq-queue-deque">Queue Using collections.deque</a></li>
+      <li><a href="#sq-circular">Circular Queue</a></li>
+      <li><a href="#sq-beyond">Beyond Class 12 (Priority Queue, Linked List)</a></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ======================= CHAPTER 1: FUNCTIONS ======================= -->
+<div class="chapter-divider" id="functions-ch">
+  <h1>Chapter 1 · Functions</h1>
+  <p>Reusable blocks of code that perform a specific task.</p>
+</div>
+
+<section id="f-intro">
+<h2>1. What is a Function?</h2>
+<p>A <strong>function</strong> is a named block of organized, reusable code that performs a single, related action. Instead of writing the same code again and again, you write it once inside a function and simply <em>call</em> it whenever needed.</p>
+<div class="card note">
+<h4>Why use functions?</h4>
+<ul>
+<li><strong>Reusability</strong> — write once, use many times</li>
+<li><strong>Modularity</strong> — break a big problem into smaller, manageable pieces</li>
+<li><strong>Readability</strong> — code becomes easier to understand and debug</li>
+<li><strong>Maintainability</strong> — fix a bug in one place, it's fixed everywhere the function is used</li>
+</ul>
+</div>
+</section>
+
+<section id="f-types">
+<h2>2. Types of Functions</h2>
+<table>
+<tr><th>Type</th><th>Description</th><th>Example</th></tr>
+<tr><td><strong>Built-in functions</strong></td><td>Already provided by Python, ready to use</td><td><code>print()</code>, <code>len()</code>, <code>int()</code>, <code>range()</code></td></tr>
+<tr><td><strong>Module/Library functions</strong></td><td>Defined inside a module; must import first</td><td><code>math.sqrt()</code>, <code>random.randint()</code></td></tr>
+<tr><td><strong>User-defined functions</strong></td><td>Written by the programmer using <code>def</code></td><td><code>def greet(): ...</code></td></tr>
+<tr><td><strong>Lambda (anonymous) functions</strong></td><td>Small, one-line, unnamed functions</td><td><code>lambda x: x*x</code></td></tr>
+</table>
+</section>
+
+<section id="f-def">
+<h2>3. Defining &amp; Calling Functions</h2>
+<pre><code>def function_name(parameters):
+    """optional docstring"""
+    # function body
+    return value   # optional</code></pre>
+
+<h3>A simple example</h3>
+<pre><code>def greet():
+    print("Hello, welcome to Python!")
+
+greet()      # calling the function
+greet()      # can call as many times as needed</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Hello, welcome to Python!
+Hello, welcome to Python!</div>
+<div class="explain"><strong>Explanation:</strong> <code>def</code> defines the function and gives it a name (<code>greet</code>). Nothing runs until the function is <strong>called</strong> using <code>greet()</code>. Notice we called it twice — the code inside runs fresh each time, showing reusability.</div>
+
+<h3>Function with parameters</h3>
+<pre><code>def greet(name):
+    print("Hello,", name)
+
+greet("Amit")
+greet("Riya")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Hello, Amit
+Hello, Riya</div>
+<div class="explain"><strong>Explanation:</strong> <code>name</code> is a <strong>parameter</strong> — a placeholder variable in the function definition. When we call <code>greet("Amit")</code>, "Amit" is the <strong>argument</strong> — the actual value passed in. Parameters and arguments are often used interchangeably, but technically: parameter = variable in definition, argument = value at call time.</div>
+
+<h3>The docstring</h3>
+<pre><code>def add(a, b):
+    """Returns the sum of two numbers"""
+    return a + b
+
+print(add.__doc__)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Returns the sum of two numbers</div>
+<div class="explain"><strong>Explanation:</strong> A docstring (triple-quoted string right after <code>def</code>) documents what the function does. It's accessible via <code>function_name.__doc__</code> or <code>help(function_name)</code> — good practice for every function you write.</div>
+</section>
+
+<section id="f-args">
+<h2>4. Arguments &amp; Parameters — All Kinds</h2>
+
+<h3>4.1 Positional Arguments</h3>
+<pre><code>def student(name, marks):
+    print(name, "scored", marks)
+
+student("Amit", 85)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Amit scored 85</div>
+<div class="explain"><strong>Explanation:</strong> Arguments are matched to parameters strictly by <strong>position/order</strong>. "Amit" goes to <code>name</code> (1st), 85 goes to <code>marks</code> (2nd). Swapping the order changes the meaning.</div>
+
+<h3>4.2 Keyword Arguments</h3>
+<pre><code>def student(name, marks):
+    print(name, "scored", marks)
+
+student(marks=85, name="Amit")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Amit scored 85</div>
+<div class="explain"><strong>Explanation:</strong> By naming the parameter explicitly (<code>marks=85</code>), order no longer matters — Python matches by <strong>name</strong> instead of position. Very useful for readability with functions that take many parameters.</div>
+
+<h3>4.3 Default Arguments</h3>
+<pre><code>def student(name, marks=50):
+    print(name, "scored", marks)
+
+student("Amit", 90)
+student("Riya")          # marks not given, uses default</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Amit scored 90
+Riya scored 50</div>
+<div class="explain"><strong>Explanation:</strong> A default value is used <strong>only</strong> when the caller doesn't supply that argument. Rule: default parameters must come <strong>after</strong> non-default ones in the definition — <code>def f(a, b=5)</code> is valid, <code>def f(a=5, b)</code> is a <code>SyntaxError</code>.</div>
+
+<h3>4.4 Positional-or-Keyword mixing rule</h3>
+<div class="card warning">
+<h4>Order matters when mixing</h4>
+<pre><code>def student(name, marks=50):
+    print(name, marks)
+
+student(name="Amit", 90)   # ERROR</code></pre>
+<div class="out-label">Output</div>
+<div class="output">SyntaxError: positional argument follows keyword argument</div>
+<p>Once you use a keyword argument, every argument after it must also be a keyword argument.</p>
+</div>
+
+<h3>4.5 Arbitrary Arguments — *args</h3>
+<pre><code>def total(*numbers):
+    print(numbers)
+    print(sum(numbers))
+
+total(10, 20, 30)
+total(5, 5, 5, 5, 5)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">(10, 20, 30)
+60
+(5, 5, 5, 5, 5)
+25</div>
+<div class="explain"><strong>Explanation:</strong> <code>*numbers</code> collects <strong>any number</strong> of positional arguments into a <strong>tuple</strong>. Use this when you don't know in advance how many values will be passed — like a function that adds any amount of numbers.</div>
+
+<h3>4.6 Arbitrary Keyword Arguments — **kwargs</h3>
+<pre><code>def profile(**details):
+    print(details)
+    for key, value in details.items():
+        print(key, ":", value)
+
+profile(name="Amit", age=17, city="Delhi")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">{'name': 'Amit', 'age': 17, 'city': 'Delhi'}
+name : Amit
+age : 17
+city : Delhi</div>
+<div class="explain"><strong>Explanation:</strong> <code>**details</code> collects any number of <strong>keyword</strong> arguments into a <strong>dictionary</strong>. Keys become the argument names, values become what was passed.</div>
+
+<h3>4.7 Combining all argument types</h3>
+<pre><code>def demo(a, b, *args, c=10, **kwargs):
+    print("a,b:", a, b)
+    print("args:", args)
+    print("c:", c)
+    print("kwargs:", kwargs)
+
+demo(1, 2, 3, 4, 5, c=99, x=100, y=200)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">a,b: 1 2
+args: (3, 4, 5)
+c: 99
+kwargs: {'x': 100, 'y': 200}</div>
+<div class="explain"><strong>Explanation:</strong> Python requires this strict order in a function definition: <strong>normal positional parameters → *args → default/keyword parameters → **kwargs</strong>. This lets a single function flexibly accept a mix of required, optional, extra positional, and extra keyword arguments — commonly used in real frameworks (e.g. Django, Flask).</div>
+
+<h3>4.8 Passing a list/dict directly — unpacking with * and **</h3>
+<pre><code>def add3(a, b, c):
+    return a + b + c
+
+values = [1, 2, 3]
+print(add3(*values))     # unpacks list into 3 positional args
+
+data = {"a": 10, "b": 20, "c": 30}
+print(add3(**data))      # unpacks dict into keyword args</code></pre>
+<div class="out-label">Output</div>
+<div class="output">6
+60</div>
+<div class="explain"><strong>Explanation:</strong> The <code>*</code>/<code>**</code> operators work both ways — inside a function definition they <em>collect</em> arguments, but at a <em>call site</em> they <em>unpack</em> an existing list/dict into separate arguments. This is a favorite "beyond NCERT" exam trick.</div>
+</section>
+
+<section id="f-return">
+<h2>5. The return Statement</h2>
+<pre><code>def square(x):
+    return x * x
+
+result = square(5)
+print(result)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">25</div>
+<div class="explain"><strong>Explanation:</strong> <code>return</code> sends a value back to wherever the function was called, and immediately <strong>ends</strong> the function (any code after <code>return</code> inside that function never runs). A function with no <code>return</code> statement automatically returns <code>None</code>.</div>
+
+<h3>Returning multiple values</h3>
+<pre><code>def stats(numbers):
+    return min(numbers), max(numbers), sum(numbers)/len(numbers)
+
+lowest, highest, average = stats([10, 20, 30, 40])
+print(lowest, highest, average)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">10 40 25.0</div>
+<div class="explain"><strong>Explanation:</strong> Python lets you return multiple values separated by commas — they're actually packed into a <strong>tuple</strong> behind the scenes: <code>(10, 40, 25.0)</code>. This is then <strong>unpacked</strong> into three separate variables on the receiving side.</div>
+
+<div class="card warning">
+<h4>return vs print — a classic exam confusion</h4>
+<pre><code>def add_print(a, b):
+    print(a + b)
+
+def add_return(a, b):
+    return a + b
+
+x = add_print(3, 4)      # prints 7 immediately, but x becomes None
+y = add_return(3, 4)     # prints nothing, but y becomes 7
+
+print("x =", x)
+print("y =", y)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">7
+x = None
+y = 7</div>
+<p><code>print()</code> only displays a value on screen — it does NOT send that value back to the caller. <code>return</code> sends the value back so it can be stored/used further. This distinction is tested very frequently.</p>
+</div>
+</section>
+
+<section id="f-scope">
+<h2>6. Scope: Local, Global, and nonlocal</h2>
+
+<h3>Local scope</h3>
+<pre><code>def my_func():
+    x = 10       # local variable
+    print(x)
+
+my_func()
+print(x)         # ERROR — x doesn't exist outside the function</code></pre>
+<div class="out-label">Output</div>
+<div class="output">10
+NameError: name 'x' is not defined</div>
+<div class="explain"><strong>Explanation:</strong> A variable created inside a function exists only inside that function — this is its <strong>local scope</strong>. It's destroyed once the function finishes running.</div>
+
+<h3>Global scope</h3>
+<pre><code>x = 100      # global variable
+
+def show():
+    print(x)    # can READ global variable
+
+show()
+print(x)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">100
+100</div>
+<div class="explain"><strong>Explanation:</strong> A variable defined outside any function is <strong>global</strong> — accessible everywhere, including inside functions, as long as you only <em>read</em> it.</div>
+
+<h3>The global keyword — modifying a global variable</h3>
+<pre><code>x = 100
+
+def change():
+    global x
+    x = 500
+
+change()
+print(x)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">500</div>
+<div class="explain"><strong>Explanation:</strong> Without the <code>global</code> keyword, assigning to <code>x</code> inside a function creates a new <strong>local</strong> variable instead of changing the global one. The <code>global</code> keyword tells Python: "don't create a new local variable — use and modify the global one."</div>
+
+<div class="card warning">
+<h4>Common mistake without global</h4>
+<pre><code>x = 100
+
+def change():
+    x = 500     # this creates a NEW local x, doesn't touch global x
+    print("Inside:", x)
+
+change()
+print("Outside:", x)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Inside: 500
+Outside: 100</div>
+<p>The global <code>x</code> is untouched — proving that assignment inside a function is local by default unless declared <code>global</code>.</p>
+</div>
+
+<h3>nonlocal keyword <span class="badge">nested functions</span></h3>
+<pre><code>def outer():
+    y = 10
+    def inner():
+        nonlocal y
+        y = 99
+    inner()
+    print(y)
+
+outer()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">99</div>
+<div class="explain"><strong>Explanation:</strong> <code>nonlocal</code> is used inside a <strong>nested function</strong> to modify a variable from its immediately enclosing (but not global) scope. It's like <code>global</code>, but one level up instead of jumping all the way to global scope.</div>
+</section>
+
+<section id="f-recursion">
+<h2>7. Recursion</h2>
+<p>A function that calls <strong>itself</strong> is called recursive. Every recursive function needs a <strong>base case</strong> (a condition to stop) to avoid infinite recursion.</p>
+
+<h3>Factorial using recursion</h3>
+<pre><code>def factorial(n):
+    if n == 0:            # base case
+        return 1
+    else:
+        return n * factorial(n - 1)   # recursive case
+
+print(factorial(5))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">120</div>
+<div class="explain"><strong>Explanation:</strong> <code>factorial(5)</code> calls <code>factorial(4)</code>, which calls <code>factorial(3)</code>, and so on until <code>factorial(0)</code> returns 1 (base case). Then the results multiply back up: 1×1×2×3×4×5 = 120.</div>
+
+<div class="diagram">factorial(5)
+= 5 * factorial(4)
+= 5 * (4 * factorial(3))
+= 5 * (4 * (3 * factorial(2)))
+= 5 * (4 * (3 * (2 * factorial(1))))
+= 5 * (4 * (3 * (2 * (1 * factorial(0)))))
+= 5 * (4 * (3 * (2 * (1 * 1))))
+= 120</div>
+
+<h3>Fibonacci using recursion</h3>
+<pre><code>def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+for i in range(7):
+    print(fibonacci(i), end=" ")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">0 1 1 2 3 5 8</div>
+
+<h3>Recursion vs Iteration</h3>
+<table>
+<tr><th>Aspect</th><th>Recursion</th><th>Iteration (loops)</th></tr>
+<tr><td>Readability</td><td>Often shorter, matches mathematical definition</td><td>Can be longer but explicit</td></tr>
+<tr><td>Memory</td><td>Uses call stack — more memory, risk of <code>RecursionError</code></td><td>Usually more memory-efficient</td></tr>
+<tr><td>Speed</td><td>Slower (function call overhead)</td><td>Generally faster</td></tr>
+</table>
+
+<div class="card warning">
+<h4>Missing base case → infinite recursion</h4>
+<pre><code>def bad(n):
+    return bad(n-1)   # no base case!
+
+bad(5)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">RecursionError: maximum recursion depth exceeded</div>
+</div>
+</section>
+
+<section id="f-lambda">
+<h2>8. Lambda (Anonymous) Functions</h2>
+<pre><code>square = lambda x: x * x
+print(square(5))
+
+add = lambda a, b: a + b
+print(add(3, 4))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">25
+7</div>
+<div class="explain"><strong>Explanation:</strong> <code>lambda</code> creates a small, unnamed function in a single line: <code>lambda arguments: expression</code>. There's no <code>return</code> keyword — the expression's result is automatically returned. Lambdas can only contain a single expression, not multiple statements.</div>
+
+<h3>Lambda with map(), filter(), and sorted()</h3>
+<pre><code>nums = [1, 2, 3, 4, 5]
+
+squares = list(map(lambda x: x*x, nums))
+print(squares)
+
+evens = list(filter(lambda x: x % 2 == 0, nums))
+print(evens)
+
+students = [("Amit", 85), ("Riya", 90), ("John", 70)]
+students.sort(key=lambda s: s[1], reverse=True)
+print(students)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">[1, 4, 9, 16, 25]
+[2, 4]
+[('Riya', 90), ('Amit', 85), ('John', 70)]</div>
+<div class="explain"><strong>Explanation:</strong> <code>map()</code> applies the lambda to every element and returns a transformed sequence. <code>filter()</code> keeps only elements where the lambda returns <code>True</code>. <code>sorted()</code>/<code>list.sort()</code> use the lambda as a custom <strong>key</strong> to decide sort order — here sorting students by marks, descending. This combination is one of the most useful patterns in practical Python.</div>
+</section>
+
+<section id="f-modules">
+<h2>9. Modules &amp; import</h2>
+<pre><code>import math
+print(math.sqrt(25))
+print(math.pi)
+
+from random import randint
+print(randint(1, 10))
+
+import math as m
+print(m.factorial(5))</code></pre>
+<div class="out-label">Sample Output</div>
+<div class="output">5.0
+3.141592653589793
+7
+120</div>
+<table>
+<tr><th>Syntax</th><th>Meaning</th></tr>
+<tr><td><code>import module</code></td><td>Import entire module; access with <code>module.function()</code></td></tr>
+<tr><td><code>from module import name</code></td><td>Import only a specific function/variable directly</td></tr>
+<tr><td><code>import module as alias</code></td><td>Import with a shorter custom name</td></tr>
+<tr><td><code>from module import *</code></td><td>Import everything (not recommended — pollutes namespace)</td></tr>
+</table>
+
+<h3>Creating your own module</h3>
+<pre><code># File: mymath.py
+def double(x):
+    return x * 2
+
+# File: main.py
+import mymath
+print(mymath.double(10))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">20</div>
+<div class="explain"><strong>Explanation:</strong> Any <code>.py</code> file can be imported as a module in another file, as long as both are in the same folder (or the module is on Python's search path). This is how large Python projects are organized into multiple files.</div>
+</section>
+
+<section id="f-beyond">
+<h2>10. Beyond Class 12</h2>
+
+<h3>Closures</h3>
+<pre><code>def multiplier(n):
+    def inner(x):
+        return x * n
+    return inner
+
+double = multiplier(2)
+triple = multiplier(3)
+print(double(5))
+print(triple(5))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">10
+15</div>
+<div class="explain"><strong>Explanation:</strong> <code>inner</code> "remembers" the value of <code>n</code> from its enclosing function even after <code>multiplier()</code> has finished running — this is a <strong>closure</strong>. <code>double</code> and <code>triple</code> are independent functions, each carrying their own captured value of <code>n</code>.</div>
+
+<h3>Decorators</h3>
+<pre><code>def my_decorator(func):
+    def wrapper():
+        print("Before the function runs")
+        func()
+        print("After the function runs")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+
+say_hello()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Before the function runs
+Hello!
+After the function runs</div>
+<div class="explain"><strong>Explanation:</strong> A decorator is a function that "wraps" another function to add extra behavior without changing its code. <code>@my_decorator</code> is shorthand for <code>say_hello = my_decorator(say_hello)</code>. Widely used in real frameworks — e.g. Flask's <code>@app.route()</code>.</div>
+
+<h3>Function annotations (type hints)</h3>
+<pre><code>def add(a: int, b: int) -> int:
+    return a + b
+
+print(add(3, 4))
+print(add.__annotations__)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">7
+{'a': &lt;class 'int'&gt;, 'b': &lt;class 'int'&gt;, 'return': &lt;class 'int'&gt;}</div>
+<div class="explain"><strong>Explanation:</strong> Annotations document expected argument/return types. Python does <strong>not</strong> enforce them at runtime (you can still pass a string and it won't error) — they're purely for readability and tools like linters/IDEs.</div>
+</section>
+
+<!-- ======================= CHAPTER 2: EXCEPTION HANDLING ======================= -->
+<div class="chapter-divider" id="exceptions-ch">
+  <h1>Chapter 2 · Exception Handling</h1>
+  <p>Gracefully dealing with errors that occur while a program is running.</p>
+</div>
+
+<section id="e-intro">
+<h2>1. Errors vs Exceptions</h2>
+<table>
+<tr><th>Type</th><th>When it happens</th><th>Example</th></tr>
+<tr><td><strong>Syntax Error</strong></td><td>Before the program runs — invalid Python grammar</td><td><code>if x = 5:</code> (missing colon logic, wrong operator)</td></tr>
+<tr><td><strong>Exception (Runtime Error)</strong></td><td>While the program is running — code is syntactically correct but fails during execution</td><td>Dividing by zero, opening a missing file</td></tr>
+</table>
+<pre><code>print(10 / 0)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">ZeroDivisionError: division by zero</div>
+<div class="explain"><strong>Explanation:</strong> This is syntactically valid Python — it only fails when Python actually tries to execute the division. Without handling, an unhandled exception <strong>crashes</strong> the entire program.</div>
+</section>
+
+<section id="e-trycept">
+<h2>2. try / except — The Basics</h2>
+<pre><code>try:
+    a = int(input("Enter a number: "))
+    b = int(input("Enter another number: "))
+    print(a / b)
+except ZeroDivisionError:
+    print("You cannot divide by zero!")</code></pre>
+<div class="out-label">Sample Output (input 10, then 0)</div>
+<div class="output">Enter a number: 10
+Enter another number: 0
+You cannot divide by zero!</div>
+<div class="explain"><strong>Explanation:</strong> Code that might fail goes inside <code>try</code>. If an exception of the matching type occurs, Python immediately jumps to the matching <code>except</code> block instead of crashing — the rest of the <code>try</code> block is skipped.</div>
+</section>
+
+<section id="e-multiple">
+<h2>3. Multiple except Blocks</h2>
+<pre><code>try:
+    a = int(input("Enter numerator: "))
+    b = int(input("Enter denominator: "))
+    print(a / b)
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+except ValueError:
+    print("Please enter valid integers.")
+except Exception as e:
+    print("Something else went wrong:", e)</code></pre>
+<div class="out-label">Output (if user enters "abc")</div>
+<div class="output">Enter numerator: abc
+Please enter valid integers.</div>
+<div class="explain"><strong>Explanation:</strong> Python checks each <code>except</code> block <strong>top to bottom</strong> and runs the first one that matches the exception type. The final <code>except Exception as e</code> acts as a catch-all for anything not specifically handled above — <code>e</code> holds the actual error message object.</div>
+
+<h3>Catching multiple exception types in one block</h3>
+<pre><code>try:
+    x = int("abc")
+except (ValueError, TypeError):
+    print("Invalid value or type!")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Invalid value or type!</div>
+<div class="explain"><strong>Explanation:</strong> A tuple of exception types in one <code>except</code> lets a single block handle several possible exception types the same way.</div>
+</section>
+
+<section id="e-elsefinally">
+<h2>4. else and finally</h2>
+<pre><code>try:
+    a = int(input("Enter a number: "))
+    b = int(input("Enter another number: "))
+    result = a / b
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+else:
+    print("Division successful. Result:", result)
+finally:
+    print("Execution complete.")</code></pre>
+<div class="out-label">Output (input 10, 2)</div>
+<div class="output">Enter a number: 10
+Enter another number: 2
+Division successful. Result: 5.0
+Execution complete.</div>
+<div class="explain"><strong>Explanation:</strong> <code>else</code> runs <strong>only if no exception occurred</strong> in the <code>try</code> block. <code>finally</code> runs <strong>no matter what</strong> — whether an exception occurred, was handled, or not — commonly used for cleanup actions like closing a file or a database connection.</div>
+
+<div class="card tip">
+<h4>Order of blocks</h4>
+<p>The correct order is always: <code>try → except (one or more) → else → finally</code>. <code>else</code> and <code>finally</code> are both optional, and each type of block appears only in this order.</p>
+</div>
+</section>
+
+<section id="e-builtins">
+<h2>5. Common Built-in Exceptions</h2>
+<table>
+<tr><th>Exception</th><th>Raised when...</th></tr>
+<tr><td><code>ZeroDivisionError</code></td><td>Dividing a number by zero</td></tr>
+<tr><td><code>ValueError</code></td><td>A function receives an argument of correct type but invalid value (e.g. <code>int("abc")</code>)</td></tr>
+<tr><td><code>TypeError</code></td><td>An operation is applied to an object of the wrong type (e.g. <code>"5" + 5</code>)</td></tr>
+<tr><td><code>NameError</code></td><td>Using a variable that hasn't been defined</td></tr>
+<tr><td><code>IndexError</code></td><td>Accessing a list/string index that is out of range</td></tr>
+<tr><td><code>KeyError</code></td><td>Accessing a dictionary key that doesn't exist</td></tr>
+<tr><td><code>FileNotFoundError</code></td><td>Trying to open a file that doesn't exist</td></tr>
+<tr><td><code>ImportError</code></td><td>A module or name cannot be imported</td></tr>
+<tr><td><code>AttributeError</code></td><td>Accessing an attribute/method that doesn't exist on an object</td></tr>
+<tr><td><code>IndentationError</code></td><td>Incorrect indentation in code</td></tr>
+<tr><td><code>OverflowError</code></td><td>A numeric calculation exceeds the maximum representable value</td></tr>
+<tr><td><code>RecursionError</code></td><td>Maximum recursion depth exceeded</td></tr>
+</table>
+
+<h3>A few examples with output</h3>
+<pre><code>try:
+    lst = [1, 2, 3]
+    print(lst[10])
+except IndexError:
+    print("Index out of range!")
+
+try:
+    d = {"name": "Amit"}
+    print(d["age"])
+except KeyError:
+    print("Key not found!")
+
+try:
+    print("5" + 5)
+except TypeError:
+    print("Cannot add string and int directly!")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Index out of range!
+Key not found!
+Cannot add string and int directly!</div>
+</section>
+
+<section id="e-raise">
+<h2>6. The raise Statement</h2>
+<pre><code>def set_age(age):
+    if age < 0:
+        raise ValueError("Age cannot be negative")
+    print("Age set to", age)
+
+try:
+    set_age(-5)
+except ValueError as e:
+    print("Error:", e)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Error: Age cannot be negative</div>
+<div class="explain"><strong>Explanation:</strong> <code>raise</code> lets the programmer <strong>deliberately trigger</strong> an exception when a certain condition is invalid — even though Python itself wouldn't naturally throw an error there. This is how you build validation logic (e.g. rejecting a negative age).</div>
+
+<h3>Re-raising an exception</h3>
+<pre><code>try:
+    try:
+        1 / 0
+    except ZeroDivisionError:
+        print("Logging the error...")
+        raise            # re-raises the SAME exception
+except ZeroDivisionError:
+    print("Caught again in outer block")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Logging the error...
+Caught again in outer block</div>
+<div class="explain"><strong>Explanation:</strong> A bare <code>raise</code> (with nothing after it) inside an <code>except</code> block re-throws the exact same exception, letting you log/handle it partially before passing it further up to another handler.</div>
+</section>
+
+<section id="e-custom">
+<h2>7. Custom (User-Defined) Exceptions <span class="badge">beyond NCERT but examinable</span></h2>
+<pre><code>class NegativeMarksError(Exception):
+    def __init__(self, message="Marks cannot be negative"):
+        self.message = message
+        super().__init__(self.message)
+
+def set_marks(marks):
+    if marks < 0:
+        raise NegativeMarksError()
+    print("Marks recorded:", marks)
+
+try:
+    set_marks(-10)
+except NegativeMarksError as e:
+    print("Custom Error:", e)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Custom Error: Marks cannot be negative</div>
+<div class="explain"><strong>Explanation:</strong> Custom exceptions are created by defining a new class that inherits from Python's built-in <code>Exception</code> class. This lets you create meaningful, specific error types for your own programs, instead of relying only on generic built-in ones.</div>
+</section>
+
+<section id="e-assert">
+<h2>8. The assert Statement</h2>
+<pre><code>def divide(a, b):
+    assert b != 0, "Denominator cannot be zero"
+    return a / b
+
+print(divide(10, 2))
+print(divide(10, 0))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">5.0
+AssertionError: Denominator cannot be zero</div>
+<div class="explain"><strong>Explanation:</strong> <code>assert condition, message</code> checks that a condition is <code>True</code>. If it's <code>False</code>, Python raises an <code>AssertionError</code> with the given message. Commonly used for debugging/testing — checking assumptions that <strong>should</strong> always be true if the code is correct.</div>
+</section>
+
+<section id="e-beyond">
+<h2>9. Beyond Class 12</h2>
+
+<h3>Exception chaining with "from"</h3>
+<pre><code>try:
+    try:
+        1 / 0
+    except ZeroDivisionError as e:
+        raise ValueError("Invalid calculation") from e
+except ValueError as e:
+    print(e)
+    print("Original cause:", e.__cause__)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Invalid calculation
+Original cause: division by zero</div>
+<div class="explain"><strong>Explanation:</strong> <code>raise NewError from original_error</code> preserves the original exception as context, so you know both the new error and its root cause — useful in large systems for debugging where an error actually originated.</div>
+
+<h3>Exceptions with context managers (relates to file handling)</h3>
+<pre><code>class SafeDivider:
+    def __enter__(self):
+        print("Starting safe division block")
+        return self
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is ZeroDivisionError:
+            print("Handled division by zero inside context manager")
+            return True     # suppress the exception
+        print("Exiting block")
+
+with SafeDivider():
+    print(10 / 0)
+print("Program continues normally")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Starting safe division block
+Handled division by zero inside context manager
+Program continues normally</div>
+<div class="explain"><strong>Explanation:</strong> This shows how the <code>with</code> statement (used for files) is actually powered by <code>__enter__</code>/<code>__exit__</code> methods, and <code>__exit__</code> can even catch and suppress exceptions — connecting exception handling directly to file handling concepts.</div>
+</section>
+
+<!-- ======================= CHAPTER 3: FILE HANDLING ======================= -->
+<div class="chapter-divider" id="files-ch">
+  <h1>Chapter 3 · File Handling</h1>
+  <p>Reading and writing data to text, binary, and CSV files so it persists beyond a single program run.</p>
+</div>
+
+<section id="fh-intro">
+<h2>1. What is a File?</h2>
+<p>A <strong>file</strong> is a named location on secondary storage (hard disk/SSD) used to permanently store data. Unlike variables in a running program (volatile memory, lost when the program ends), files keep data safe even after the program closes.</p>
+<div class="card note">
+<h4>Why do we need files?</h4>
+<p>Without files, every program run starts from scratch. Files let programs <strong>persist</strong> data — student records, transactions, logs, game saves — across multiple runs.</p>
+</div>
+</section>
+
+<section id="fh-types">
+<h2>2. Types of Files</h2>
+<table>
+<tr><th>Type</th><th>Description</th><th>Example</th></tr>
+<tr><td><strong>Text File</strong></td><td>Readable characters, lines end with <code>\n</code></td><td><code>.txt</code>, <code>.py</code></td></tr>
+<tr><td><strong>Binary File</strong></td><td>Raw bytes, exact copy of data in memory, not directly readable</td><td><code>.dat</code>, <code>.jpg</code></td></tr>
+<tr><td><strong>CSV File</strong></td><td>Text file with comma-separated tabular values</td><td><code>.csv</code></td></tr>
+</table>
+<div class="card tip">
+<h4>Key exam point</h4>
+<p>Text files store <strong>everything as strings</strong> — even <code>25</code> becomes the characters <code>'2'</code>,<code>'5'</code>. Binary files preserve the actual data type — this is why <code>pickle</code> is used to save Python objects directly.</p>
+</div>
+</section>
+
+<section id="fh-open">
+<h2>3. The open() Function &amp; Modes</h2>
+<pre><code>file_object = open(file_name, mode, buffering)</code></pre>
+<table>
+<tr><th>Mode</th><th>Meaning</th><th>Read?</th><th>Write?</th><th>Erases old data?</th><th>File must exist?</th><th>Cursor starts</th></tr>
+<tr><td><code>r</code></td><td>Read (default)</td><td>✅</td><td>❌</td><td>No</td><td>Yes</td><td>Start</td></tr>
+<tr><td><code>w</code></td><td>Write</td><td>❌</td><td>✅</td><td><strong>Yes</strong></td><td>No (creates)</td><td>Start</td></tr>
+<tr><td><code>a</code></td><td>Append</td><td>❌</td><td>✅</td><td>No</td><td>No (creates)</td><td>End</td></tr>
+<tr><td><code>x</code></td><td>Exclusive creation</td><td>❌</td><td>✅</td><td>N/A</td><td>Must NOT exist</td><td>Start</td></tr>
+<tr><td><code>r+</code></td><td>Read + Write</td><td>✅</td><td>✅</td><td>No</td><td>Yes</td><td>Start</td></tr>
+<tr><td><code>w+</code></td><td>Write + Read</td><td>✅</td><td>✅</td><td><strong>Yes</strong></td><td>No (creates)</td><td>Start</td></tr>
+<tr><td><code>a+</code></td><td>Append + Read</td><td>✅</td><td>✅</td><td>No</td><td>No (creates)</td><td>End</td></tr>
+<tr><td><code>rb</code>/<code>wb</code>/<code>ab</code></td><td>Same, but binary</td><td colspan="4">Data is <code>bytes</code>, not <code>str</code></td></tr>
+</table>
+
+<h3>The "w" mode trap</h3>
+<pre><code># data.txt already has "Hello students"
+f = open("data.txt", "w")
+f.close()
+f2 = open("data.txt", "r")
+print(f2.read())
+f2.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">(empty string)</div>
+<div class="explain"><strong>Explanation:</strong> Opening in <code>"w"</code> mode erases old content instantly — even before <code>write()</code> runs. The most common accidental-data-loss mistake.</div>
+</section>
+
+<section id="fh-attrs">
+<h2>4. File Object Attributes</h2>
+<pre><code>f = open("data.txt", "r")
+print(f.name)
+print(f.mode)
+print(f.closed)
+f.close()
+print(f.closed)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">data.txt
+r
+False
+True</div>
+</section>
+
+<section id="fh-text">
+<h2>5. Text Files — Deep Dive</h2>
+
+<h3>write() — with return value</h3>
+<pre><code>f = open("data.txt", "w")
+n = f.write("Hello")
+print(n)
+f.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">5</div>
+<div class="explain"><strong>Explanation:</strong> <code>write()</code> returns the number of characters written.</div>
+
+<h3>writelines()</h3>
+<pre><code>f = open("data.txt", "w")
+lines = ["Amit\n", "Riya\n", "John\n"]
+f.writelines(lines)
+f.close()</code></pre>
+<div class="out-label">File content</div>
+<div class="output">Amit
+Riya
+John</div>
+<div class="explain"><strong>Explanation:</strong> Writes a list of strings, but does NOT add <code>\n</code> automatically.</div>
+
+<h3>read(), read(n), readline(), readline(n), readlines()</h3>
+<pre><code>f = open("data.txt", "r")
+print(f.read())
+f.close()
+
+f = open("data.txt", "r")
+print(f.read(5))
+f.close()
+
+f = open("data.txt", "r")
+print(f.readline())
+print(f.readline(2))
+f.close()
+
+f = open("data.txt", "r")
+print(f.readlines())
+f.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Amit
+Riya
+John
+
+Amit
+
+Amit
+
+Ri
+['Amit\n', 'Riya\n', 'John\n']</div>
+<div class="explain">
+<strong>Explanation:</strong><br>
+• <code>read()</code> → whole file as one string<br>
+• <code>read(5)</code> → first 5 characters<br>
+• <code>readline()</code> → one line with <code>\n</code><br>
+• <code>readline(2)</code> → 2 characters of current line<br>
+• <code>readlines()</code> → list of all lines (each keeps <code>\n</code>)
+</div>
+
+<h3>Looping through a file</h3>
+<pre><code>f = open("data.txt", "r")
+for line in f:
+    print(line.strip())
+f.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Amit
+Riya
+John</div>
+<div class="explain"><strong>Explanation:</strong> A file object is directly iterable — memory efficient for large files since it reads one line at a time.</div>
+
+<h3>Counting lines, words, characters</h3>
+<pre><code>f = open("data.txt", "r")
+lines = f.readlines()
+f.close()
+
+word_count = sum(len(line.split()) for line in lines)
+char_count = sum(len(line) for line in lines)
+print("Lines:", len(lines))
+print("Words:", word_count)
+print("Characters:", char_count)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Lines: 3
+Words: 3
+Characters: 15</div>
+</section>
+
+<section id="fh-cursor">
+<h2>6. tell() and seek()</h2>
+<pre><code>f = open("data.txt", "r")
+print(f.tell())
+f.read(5)
+print(f.tell())
+f.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">0
+5</div>
+
+<h3>seek(offset, reference)</h3>
+<pre><code>f = open("data.txt", "rb")
+f.seek(-5, 2)     # 5 bytes back from END
+print(f.read())
+f.close()</code></pre>
+<div class="out-label">Output (file was "Hello students")</div>
+<div class="output">b'dents'</div>
+
+<div class="card warning">
+<h4>The w+ trap</h4>
+<pre><code>f = open("data.txt", "w+")
+f.write("Exam time")
+print(f.read())
+f.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">(empty string)</div>
+<p>Cursor is at the END after writing — must <code>f.seek(0)</code> before reading.</p>
+</div>
+</section>
+
+<section id="fh-binary">
+<h2>7. Binary Files — Deep Dive</h2>
+
+<h3>Basic dump and load</h3>
+<pre><code>import pickle
+data = {"name": "Amit", "marks": 95}
+
+f = open("student.dat", "wb")
+pickle.dump(data, f)
+f.close()
+
+f = open("student.dat", "rb")
+new_data = pickle.load(f)
+f.close()
+print(new_data)
+print(type(new_data))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">{'name': 'Amit', 'marks': 95}
+&lt;class 'dict'&gt;</div>
+
+<h3>Multiple records — list of dictionaries</h3>
+<pre><code>import pickle
+students = [
+    {"roll": 1, "name": "Amit", "marks": 85},
+    {"roll": 2, "name": "Riya", "marks": 90},
+    {"roll": 3, "name": "John", "marks": 78}
+]
+f = open("students.dat", "wb")
+pickle.dump(students, f)
+f.close()
+
+f = open("students.dat", "rb")
+data = pickle.load(f)
+f.close()
+for record in data:
+    print(record)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">{'roll': 1, 'name': 'Amit', 'marks': 85}
+{'roll': 2, 'name': 'Riya', 'marks': 90}
+{'roll': 3, 'name': 'John', 'marks': 78}</div>
+
+<h3>Reading unknown number of records — EOFError</h3>
+<pre><code>import pickle
+f = open("students2.dat", "wb")
+pickle.dump({"roll": 1, "name": "Amit"}, f)
+pickle.dump({"roll": 2, "name": "Riya"}, f)
+f.close()
+
+f = open("students2.dat", "rb")
+try:
+    while True:
+        record = pickle.load(f)
+        print(record)
+except EOFError:
+    pass
+f.close()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">{'roll': 1, 'name': 'Amit'}
+{'roll': 2, 'name': 'Riya'}</div>
+<div class="explain"><strong>Explanation:</strong> Keep calling <code>pickle.load()</code> until it raises <code>EOFError</code>. This <code>try/while True/except EOFError</code> pattern is a classic CBSE board question.</div>
+
+<h3>Searching, updating, and deleting records</h3>
+<pre><code>import pickle
+f = open("students.dat", "rb")
+data = pickle.load(f)
+f.close()
+
+# search
+for record in data:
+    if record["roll"] == 2:
+        print("Found:", record)
+
+# update
+for record in data:
+    if record["roll"] == 2:
+        record["marks"] = 99
+f = open("students.dat", "wb")
+pickle.dump(data, f)
+f.close()
+
+# delete
+data = [r for r in data if r["roll"] != 2]
+f = open("students.dat", "wb")
+pickle.dump(data, f)
+f.close()
+print(data)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Found: {'roll': 2, 'name': 'Riya', 'marks': 90}
+[{'roll': 1, 'name': 'Amit', 'marks': 85}, {'roll': 3, 'name': 'John', 'marks': 78}]</div>
+<div class="explain"><strong>Explanation:</strong> Binary files can't be edited in place — the pattern is always: <strong>load everything → modify in memory → write everything back</strong>.</div>
+
+<h3>The struct module <span class="badge">beyond NCERT</span></h3>
+<pre><code>import struct
+packed = struct.pack("i f 10s", 1, 85.5, b"Amit")
+f = open("record.bin", "wb")
+f.write(packed)
+f.close()
+
+f = open("record.bin", "rb")
+raw = f.read()
+f.close()
+roll, marks, name = struct.unpack("i f 10s", raw)
+print(roll, marks, name.decode().strip('\x00'))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">1 85.5 Amit</div>
+<div class="explain"><strong>Explanation:</strong> <code>struct</code> packs data into a fixed byte layout (like C structs) — the basis of real binary file formats.</div>
+</section>
+
+<section id="fh-csv">
+<h2>8. CSV Files — Deep Dive</h2>
+
+<h3>csv.writer() and csv.reader()</h3>
+<pre><code>import csv
+with open("students.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Name", "Marks", "Grade"])
+    writer.writerow(["Amit", 85, "A"])
+    writer.writerow(["Riya", 90, "A+"])
+
+with open("students.csv", "r") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">['Name', 'Marks', 'Grade']
+['Amit', '85', 'A']
+['Riya', '90', 'A+']</div>
+<div class="explain"><strong>Explanation:</strong> Each row returns as a list of <strong>strings</strong> — even 85 becomes <code>'85'</code>.</div>
+
+<div class="card warning">
+<h4>Why newline=""?</h4>
+<p>On Windows, without <code>newline=""</code>, csv writing can insert extra blank lines because both text mode and the csv module handle line endings. Always include it.</p>
+</div>
+
+<h3>writerows()</h3>
+<pre><code>import csv
+data = [["Amit", 85, "A"], ["Riya", 90, "A+"], ["John", 72, "B"]]
+with open("students.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Name", "Marks", "Grade"])
+    writer.writerows(data)</code></pre>
+<div class="explain"><strong>Explanation:</strong> <code>writerows()</code> (plural) writes a list of lists all at once.</div>
+
+<h3>DictWriter and DictReader</h3>
+<pre><code>import csv
+with open("students.csv", "w", newline="") as f:
+    fields = ["Name", "Marks", "Grade"]
+    writer = csv.DictWriter(f, fieldnames=fields)
+    writer.writeheader()
+    writer.writerow({"Name": "Amit", "Marks": 85, "Grade": "A"})
+
+with open("students.csv", "r") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">{'Name': 'Amit', 'Marks': '85', 'Grade': 'A'}</div>
+
+<h3>Custom delimiter &amp; quoting</h3>
+<pre><code>import csv
+with open("data.csv", "w", newline="") as f:
+    writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+    writer.writerow(["Amit", "Delhi, India"])
+
+with open("data.csv", "r") as f:
+    print(f.read())</code></pre>
+<div class="out-label">Output</div>
+<div class="output">"Amit","Delhi, India"
+</div>
+<div class="explain"><strong>Explanation:</strong> If a field contains a comma, csv automatically quotes it so it isn't mistaken for a new column.</div>
+
+<h3>Searching and updating CSV data</h3>
+<pre><code>import csv
+rows = []
+with open("students.csv", "r") as f:
+    reader = csv.DictReader(f)
+    fieldnames = reader.fieldnames
+    for row in reader:
+        if row["Name"] == "Amit":
+            row["Marks"] = "99"
+        rows.append(row)
+
+with open("students.csv", "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(rows)</code></pre>
+<div class="explain"><strong>Explanation:</strong> Same pattern as binary files: read everything → modify → write back.</div>
+</section>
+
+<section id="fh-with">
+<h2>9. with Statement &amp; Exception Handling in Files</h2>
+<pre><code>with open("data.txt", "r") as f:
+    content = f.read()
+print(content)
+print(f.closed)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Amit
+Riya
+John
+
+True</div>
+<div class="explain"><strong>Explanation:</strong> <code>with</code> auto-closes the file even if an error occurs — this is a <strong>context manager</strong>, the safer, preferred way to handle files.</div>
+
+<pre><code>try:
+    f = open("missing.txt", "r")
+    print(f.read())
+except FileNotFoundError:
+    print("The file does not exist.")
+finally:
+    print("Attempt finished.")</code></pre>
+<div class="out-label">Output</div>
+<div class="output">The file does not exist.
+Attempt finished.</div>
+</section>
+
+<section id="fh-beyond">
+<h2>10. Beyond Class 12</h2>
+
+<h3>JSON files</h3>
+<pre><code>import json
+data = {"name": "Amit", "marks": 85, "subjects": ["Python", "Maths"]}
+
+with open("data.json", "w") as f:
+    json.dump(data, f, indent=4)
+
+with open("data.json", "r") as f:
+    loaded = json.load(f)
+print(loaded)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">{'name': 'Amit', 'marks': 85, 'subjects': ['Python', 'Maths']}</div>
+<div class="explain"><strong>Explanation:</strong> JSON works like pickle but is human-readable text and portable across languages (used everywhere in web APIs).</div>
+
+<h3>Reading huge files efficiently</h3>
+<pre><code>with open("huge_log.txt", "r") as f:
+    for line in f:
+        if "ERROR" in line:
+            print(line.strip())</code></pre>
+<div class="explain"><strong>Explanation:</strong> Looping directly avoids loading the entire file into memory — critical for very large files.</div>
+
+<h3>os module basics</h3>
+<pre><code>import os
+print(os.getcwd())
+print(os.path.exists("data.txt"))
+os.rename("data.txt", "old_data.txt")
+os.remove("old_data.txt")</code></pre>
+<table>
+<tr><th>Function</th><th>What it does</th></tr>
+<tr><td><code>os.getcwd()</code></td><td>Current working directory</td></tr>
+<tr><td><code>os.path.exists(path)</code></td><td>Checks if a file/folder exists</td></tr>
+<tr><td><code>os.rename(old,new)</code></td><td>Renames a file</td></tr>
+<tr><td><code>os.remove(path)</code></td><td>Deletes a file</td></tr>
+</table>
+</section>
+
+<!-- ======================= CHAPTER 4: STACK & QUEUE ======================= -->
+<div class="chapter-divider" id="stackqueue-ch">
+  <h1>Chapter 4 · Stack &amp; Queue</h1>
+  <p>Fundamental linear data structures used everywhere in computing — from undo buttons to task scheduling.</p>
+</div>
+
+<section id="sq-stack-intro">
+<h2>1. What is a Stack? (LIFO)</h2>
+<p>A <strong>stack</strong> is a linear data structure that follows <strong>LIFO</strong> — Last In, First Out. The last element added is the first one removed. Think of a stack of plates: you add to the top, and you remove from the top.</p>
+<div class="diagram">   PUSH →           ← POP
+        ┌───────┐
+        │   30   │  ← top
+        ├───────┤
+        │   20   │
+        ├───────┤
+        │   10   │  ← bottom
+        └───────┘</div>
+<table>
+<tr><th>Operation</th><th>Meaning</th></tr>
+<tr><td><strong>push</strong></td><td>Add an element to the top of the stack</td></tr>
+<tr><td><strong>pop</strong></td><td>Remove and return the top element</td></tr>
+<tr><td><strong>peek</strong> (top)</td><td>View the top element without removing it</td></tr>
+<tr><td><strong>isEmpty</strong></td><td>Check whether the stack has no elements</td></tr>
+</table>
+</section>
+
+<section id="sq-stack-list">
+<h2>2. Stack Using a List</h2>
+<pre><code>stack = []
+
+# push
+stack.append(10)
+stack.append(20)
+stack.append(30)
+print("Stack after pushes:", stack)
+
+# peek
+print("Top element:", stack[-1])
+
+# pop
+removed = stack.pop()
+print("Popped:", removed)
+print("Stack after pop:", stack)
+
+# isEmpty
+print("Is empty?", len(stack) == 0)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Stack after pushes: [10, 20, 30]
+Top element: 30
+Popped: 30
+Stack after pop: [10, 20]
+Is empty? False</div>
+<div class="explain"><strong>Explanation:</strong> Python's built-in list works perfectly as a stack: <code>append()</code> is push (adds to the end = "top"), <code>pop()</code> (no argument) removes and returns the last element. Both operations run in O(1) time — very efficient because they operate at the end of the list, not the beginning.</div>
+
+<div class="card warning">
+<h4>Why NOT use index 0 as "top"?</h4>
+<pre><code>stack = [10, 20, 30]
+stack.pop(0)      # removes from FRONT instead of top — WRONG for a stack</code></pre>
+<p>Using <code>pop(0)</code> or <code>insert(0, x)</code> is slow — O(n) — because every other element must shift. Always treat the <strong>end</strong> of the list as the stack's top.</p>
+</div>
+
+<h3>Popping from an empty stack</h3>
+<pre><code>stack = []
+stack.pop()</code></pre>
+<div class="out-label">Output</div>
+<div class="output">IndexError: pop from empty list</div>
+<div class="explain"><strong>Explanation:</strong> Always check <code>isEmpty</code> (<code>len(stack) == 0</code>) before popping in real programs, to avoid this crash.</div>
+</section>
+
+<section id="sq-stack-class">
+<h2>3. Stack Using a Class (proper implementation)</h2>
+<pre><code>class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.isEmpty():
+            print("Stack is empty!")
+            return None
+        return self.items.pop()
+
+    def peek(self):
+        if self.isEmpty():
+            print("Stack is empty!")
+            return None
+        return self.items[-1]
+
+    def isEmpty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+s = Stack()
+s.push(10)
+s.push(20)
+s.push(30)
+print("Size:", s.size())
+print("Peek:", s.peek())
+print("Pop:", s.pop())
+print("Size after pop:", s.size())</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Size: 3
+Peek: 30
+Pop: 30
+Size after pop: 2</div>
+<div class="explain"><strong>Explanation:</strong> Wrapping the list inside a class hides the internal list from outside code, and adds safety checks (like refusing to pop an empty stack). This "object-oriented" style is what real Data Structures courses expect, and is the version examiners often ask you to write.</div>
+</section>
+
+<section id="sq-stack-apps">
+<h2>4. Applications of Stack</h2>
+
+<h3>Reversing a string</h3>
+<pre><code>def reverse_string(s):
+    stack = list(s)
+    reversed_str = ""
+    while stack:
+        reversed_str += stack.pop()
+    return reversed_str
+
+print(reverse_string("PYTHON"))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">NOHTYP</div>
+<div class="explain"><strong>Explanation:</strong> Every character is pushed onto the stack, then popped off — since pop removes the most recently added item first, the string comes out reversed.</div>
+
+<h3>Checking balanced parentheses</h3>
+<pre><code>def is_balanced(expression):
+    stack = []
+    pairs = {')': '(', '}': '{', ']': '['}
+    for ch in expression:
+        if ch in "({[":
+            stack.append(ch)
+        elif ch in ")}]":
+            if not stack or stack.pop() != pairs[ch]:
+                return False
+    return len(stack) == 0
+
+print(is_balanced("{[()]}"))
+print(is_balanced("{[(])}"))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">True
+False</div>
+<div class="explain"><strong>Explanation:</strong> Every opening bracket is pushed. Every closing bracket must match the most recently pushed opening bracket (popped from the top) — this is exactly why a stack (LIFO) is the natural data structure for this classic problem, used in real compilers to check code syntax.</div>
+
+<h3>Undo functionality (real-world use)</h3>
+<pre><code>undo_stack = []
+
+def type_text(text, current):
+    undo_stack.append(current)
+    return current + text
+
+def undo():
+    if undo_stack:
+        return undo_stack.pop()
+    return ""
+
+doc = ""
+doc = type_text("Hello", doc)
+doc = type_text(" World", doc)
+print("Document:", doc)
+
+doc = undo()
+print("After undo:", doc)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Document: Hello World
+After undo: Hello</div>
+<div class="explain"><strong>Explanation:</strong> Every text editor's "Undo" (Ctrl+Z) is powered by a stack — each action is pushed before it happens, and undo simply pops the most recent state back.</div>
+
+<h3>Evaluating postfix expressions <span class="badge">common exam question</span></h3>
+<pre><code>def evaluate_postfix(expr):
+    stack = []
+    for token in expr.split():
+        if token.isdigit():
+            stack.append(int(token))
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            if token == '+': stack.append(a + b)
+            elif token == '-': stack.append(a - b)
+            elif token == '*': stack.append(a * b)
+            elif token == '/': stack.append(a / b)
+    return stack.pop()
+
+print(evaluate_postfix("5 3 + 2 *"))</code></pre>
+<div class="out-label">Output</div>
+<div class="output">16</div>
+<div class="explain"><strong>Explanation:</strong> Postfix (Reverse Polish) notation puts the operator after its operands — "5 3 +" means 5+3. Numbers are pushed onto the stack; when an operator appears, the top two numbers are popped, the operation applied, and the result pushed back. This is how calculators and interpreters evaluate expressions internally.</div>
+</section>
+
+<section id="sq-queue-intro">
+<h2>5. What is a Queue? (FIFO)</h2>
+<p>A <strong>queue</strong> follows <strong>FIFO</strong> — First In, First Out. The first element added is the first one removed. Think of a line/queue at a ticket counter: whoever joins first is served first.</p>
+<div class="diagram">ENQUEUE →                          → DEQUEUE
+          ┌─────┬─────┬─────┐
+          │  10  │  20  │  30  │
+          └─────┴─────┴─────┘
+           rear              front</div>
+<table>
+<tr><th>Operation</th><th>Meaning</th></tr>
+<tr><td><strong>enqueue</strong></td><td>Add an element to the rear/back of the queue</td></tr>
+<tr><td><strong>dequeue</strong></td><td>Remove and return the element from the front</td></tr>
+<tr><td><strong>peek</strong></td><td>View the front element without removing it</td></tr>
+<tr><td><strong>isEmpty</strong></td><td>Check whether the queue has no elements</td></tr>
+</table>
+</section>
+
+<section id="sq-queue-list">
+<h2>6. Queue Using a List</h2>
+<pre><code>queue = []
+
+# enqueue
+queue.append(10)
+queue.append(20)
+queue.append(30)
+print("Queue:", queue)
+
+# dequeue
+removed = queue.pop(0)
+print("Dequeued:", removed)
+print("Queue after dequeue:", queue)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Queue: [10, 20, 30]
+Dequeued: 10
+Queue after dequeue: [20, 30]</div>
+<div class="explain"><strong>Explanation:</strong> <code>append()</code> adds to the rear, <code>pop(0)</code> removes from the front — implementing FIFO order.</div>
+
+<div class="card warning">
+<h4>Performance problem with list-based queues</h4>
+<p><code>pop(0)</code> is <strong>O(n)</strong> — every remaining element has to shift one position left in memory. For large queues, this becomes slow. This is exactly why Class 12 syllabus (and real Python code) recommends <code>collections.deque</code> instead of a plain list for queues.</p>
+</div>
+</section>
+
+<section id="sq-queue-deque">
+<h2>7. Queue Using collections.deque (Recommended)</h2>
+<pre><code>from collections import deque
+
+queue = deque()
+queue.append(10)      # enqueue
+queue.append(20)
+queue.append(30)
+print("Queue:", queue)
+
+removed = queue.popleft()   # dequeue
+print("Dequeued:", removed)
+print("Queue after dequeue:", queue)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Queue: deque([10, 20, 30])
+Dequeued: 10
+Queue after dequeue: deque([20, 30])</div>
+<div class="explain"><strong>Explanation:</strong> <code>deque</code> ("double-ended queue") allows O(1) fast additions/removals from <strong>both</strong> ends, unlike a list which is only fast at the end. <code>append()</code> adds to the right, <code>popleft()</code> removes from the left — perfect and efficient for queue behavior.</div>
+
+<h3>Full Queue class using deque</h3>
+<pre><code>from collections import deque
+
+class Queue:
+    def __init__(self):
+        self.items = deque()
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if self.isEmpty():
+            print("Queue is empty!")
+            return None
+        return self.items.popleft()
+
+    def peek(self):
+        if self.isEmpty():
+            return None
+        return self.items[0]
+
+    def isEmpty(self):
+        return len(self.items) == 0
+
+q = Queue()
+q.enqueue("Amit")
+q.enqueue("Riya")
+q.enqueue("John")
+print("Front:", q.peek())
+print("Dequeue:", q.dequeue())
+print("Dequeue:", q.dequeue())</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Front: Amit
+Dequeue: Amit
+Dequeue: Riya</div>
+</section>
+
+<section id="sq-circular">
+<h2>8. Circular Queue <span class="badge">important exam topic</span></h2>
+<p>A normal queue implemented with a fixed-size array wastes space — once the front moves forward, those slots are never reused. A <strong>circular queue</strong> wraps around, reusing empty slots at the beginning once the rear reaches the end.</p>
+<pre><code>class CircularQueue:
+    def __init__(self, size):
+        self.size = size
+        self.queue = [None] * size
+        self.front = self.rear = -1
+
+    def isFull(self):
+        return (self.rear + 1) % self.size == self.front
+
+    def isEmpty(self):
+        return self.front == -1
+
+    def enqueue(self, item):
+        if self.isFull():
+            print("Queue is full!")
+            return
+        if self.isEmpty():
+            self.front = 0
+        self.rear = (self.rear + 1) % self.size
+        self.queue[self.rear] = item
+
+    def dequeue(self):
+        if self.isEmpty():
+            print("Queue is empty!")
+            return None
+        item = self.queue[self.front]
+        if self.front == self.rear:      # last element removed
+            self.front = self.rear = -1
+        else:
+            self.front = (self.front + 1) % self.size
+        return item
+
+cq = CircularQueue(3)
+cq.enqueue(10)
+cq.enqueue(20)
+cq.enqueue(30)
+cq.enqueue(40)          # queue full
+print("Dequeue:", cq.dequeue())
+cq.enqueue(40)          # now there's space, wraps around
+print(cq.queue)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">Queue is full!
+Dequeue: 10
+[40, 20, 30]</div>
+<div class="explain"><strong>Explanation:</strong> The <code>% self.size</code> (modulo) operation is what makes the queue "wrap around" — when <code>rear</code> reaches the last index, the next enqueue goes back to index 0 if it's free. This reuses space that a simple linear queue would otherwise waste.</div>
+</section>
+
+<section id="sq-beyond">
+<h2>9. Beyond Class 12</h2>
+
+<h3>Priority Queue</h3>
+<p>In a priority queue, elements are removed based on <strong>priority</strong>, not arrival order — the highest (or lowest) priority element is dequeued first, regardless of when it was added.</p>
+<pre><code>import heapq
+
+pq = []
+heapq.heappush(pq, (2, "Finish homework"))
+heapq.heappush(pq, (1, "Submit assignment"))
+heapq.heappush(pq, (3, "Watch a movie"))
+
+while pq:
+    priority, task = heapq.heappop(pq)
+    print(priority, task)</code></pre>
+<div class="out-label">Output</div>
+<div class="output">1 Submit assignment
+2 Finish homework
+3 Watch a movie</div>
+<div class="explain"><strong>Explanation:</strong> Python's <code>heapq</code> module implements a <strong>min-heap</strong> — the smallest value always comes out first. By pushing <code>(priority, task)</code> tuples, lower priority numbers get dequeued first — exactly how OS task schedulers and hospital emergency rooms prioritize work.</div>
+
+<h3>Stack &amp; Queue using a Linked List</h3>
+<pre><code>class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedStack:
+    def __init__(self):
+        self.top = None
+
+    def push(self, data):
+        new_node = Node(data)
+        new_node.next = self.top
+        self.top = new_node
+
+    def pop(self):
+        if self.top is None:
+            print("Stack is empty!")
+            return None
+        popped = self.top.data
+        self.top = self.top.next
+        return popped
+
+s = LinkedStack()
+s.push(10)
+s.push(20)
+s.push(30)
+print(s.pop())
+print(s.pop())</code></pre>
+<div class="out-label">Output</div>
+<div class="output">30
+20</div>
+<div class="explain"><strong>Explanation:</strong> Instead of a Python list, each element ("Node") points to the one below it. <code>push</code> creates a new node pointing to the old top, and makes it the new top. <code>pop</code> simply moves top to the next node. This avoids any resizing cost, and is how stacks are implemented at a lower level in languages like C/C++.</div>
+
+<h3>Stack &amp; Queue built into Python's own libraries</h3>
+<table>
+<tr><th>Structure</th><th>Recommended Python tool</th></tr>
+<tr><td>Stack</td><td><code>list</code> (append/pop) or <code>collections.deque</code></td></tr>
+<tr><td>Queue (FIFO)</td><td><code>collections.deque</code> or <code>queue.Queue</code> (thread-safe)</td></tr>
+<tr><td>Priority Queue</td><td><code>heapq</code> or <code>queue.PriorityQueue</code></td></tr>
+</table>
+</section>
+
+<hr class="sep">
+
+<section>
+<h2>Master Summary — All Chapters</h2>
+<table>
+<tr><th>Chapter</th><th>Key Idea</th><th>Core Tools</th></tr>
+<tr><td>Functions</td><td>Reusable blocks of code with inputs and outputs</td><td><code>def</code>, <code>return</code>, <code>*args</code>, <code>**kwargs</code>, <code>lambda</code></td></tr>
+<tr><td>Exception Handling</td><td>Gracefully handling runtime errors instead of crashing</td><td><code>try</code>, <code>except</code>, <code>else</code>, <code>finally</code>, <code>raise</code></td></tr>
+<tr><td>File Handling</td><td>Persisting data beyond a single program run</td><td><code>open()</code>, <code>read/write</code>, <code>pickle</code>, <code>csv</code></td></tr>
+<tr><td>Stack &amp; Queue</td><td>Ordered storage — LIFO vs FIFO</td><td><code>list</code>, <code>collections.deque</code>, <code>heapq</code></td></tr>
+</table>
+</section>
+
+<footer>Class 12 Python Notes — CBSE/NCERT + Beyond Syllabus · Functions · Exception Handling · File Handling · Stack &amp; Queue</footer>
+</div>
+</body>
+</html>
